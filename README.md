@@ -9,4 +9,4 @@
 ## 工作记录</br>
 
 * 2017.05.18 搭建Android Studio 环境，安装Git，重新编写 安夏电子席卡 题词机项目分支程序</br>
-    * ![开始界面](https://github.com/LeoLiu8023AmyLu/AX-EDP/ScreenCapture/device-2017-05-18-164156.png)
+    * ![开始界面](https://raw.githubusercontent.com/LeoLiu8023AmyLu/AX-EDP/master/ScreenCapture/device-2017-05-18-164156.png)
