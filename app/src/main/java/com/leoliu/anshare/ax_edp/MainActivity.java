@@ -1,5 +1,6 @@
 package com.leoliu.anshare.ax_edp;
 
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -26,11 +27,41 @@ public class MainActivity extends Activity {
         }
         /*
 		 * 初始化 电子席卡的数值
+		 * 用一个线程不断更新时间
 		 */
-        // 用一个线程不断更新时间
-        new TimeThread().start();
+        new TimeThread().start();   // 开始时间更新线程
     }
-
+    /**
+     *  退出关闭线程
+     */
+    public void stop() {
+        if (TimeFlag) {
+            TimeFlag = false;
+        }
+    }
+    @Override
+    protected void onResume() {
+        /**
+         * 设置为横屏
+         */
+        if(getRequestedOrientation()!= ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
+        if (TimeFlag) {}
+        else{
+            TimeFlag = true;
+        }
+        super.onResume();
+    }
+    /**
+     *  销毁Activity时再次确认关闭线程
+     */
+    protected void onDestroy() {
+        if (TimeFlag) {
+            TimeFlag = false;
+        }
+        super.onDestroy();
+    };
     /*
      * 时间更新
      */
@@ -71,8 +102,10 @@ public class MainActivity extends Activity {
                     int week = c.get(Calendar.DAY_OF_WEEK);
                     String[] weekname = {"周日", "周一", "周二", "周三", "周四", "周五", "周六"};
                     // 更新 UI
-                    MainTime.setText(sysTimeStr); // 设置时间
-                    MainDate.setText(sysDateStr + "  " + weekname[week - 1]); // 设置日期
+                    if(TimeFlag) {
+                        MainTime.setText(sysTimeStr); // 设置时间
+                        MainDate.setText(sysDateStr + "  " + weekname[week - 1]); // 设置日期
+                    }
                     break;
                 default:
                     break;

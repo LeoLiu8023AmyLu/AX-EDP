@@ -24,13 +24,14 @@ public class MainWindow extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.mainwindow, container, false);
+        //
         Button MainEnterBT = (Button) rootView.findViewById(R.id.button_MainEnter);
         MainEnterBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //do something
-                //getFragmentManager().beginTransaction().add(R.id.container, new FModelchoose()).commit();
-                //getFragmentManager().beginTransaction().remove(new MainWindow()).commit();
+                // 进入下一个 Fragment
+                getFragmentManager().beginTransaction().add(R.id.container, new MainPreView()).commit();
+                getFragmentManager().beginTransaction().remove(new MainWindow()).commit();
             }
         });
         Button MainAutoSetBT = (Button) rootView.findViewById(R.id.button_MainAutoset);

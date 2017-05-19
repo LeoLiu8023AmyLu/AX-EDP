@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">AX-EDP</string>
+    <string name="AutoMode">自动模式</string>
+    <string name="MainEnterMode">进入向导模式</string>
+    <string name="WelcomeText">欢迎使用安夏电子席卡</string>
+    <string name="title_activity_fmodelchoose">设置界面1</string>
+    <string name="EDP_Font">字体：</string>
+    <string name="EDP_InputTextA">文本内容A：</string>
+    <string name="EDP_InputTextB">文本内容B：</string>
+    <string name="EDP_InputTextC">文本内容C：</string>
+    <string name="EDP_Set">保存</string>
+    <string name="EDP_Back">返回</string>
+    <string name="EDP_PutIn">导入</string>
+    <string name="EDP_ReSet">重置</string>
+    <string name="EDP_View">显示</string>
+    <string name="EDP_Next">下一步</string>
+    <string name="EDP_Done">完成</string>
+    <string name="EDP_Txt_Up">上翻页</string>
+    <string name="EDP_Txt_Down">下翻页</string>
 </resources>

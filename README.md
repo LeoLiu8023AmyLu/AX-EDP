@@ -14,4 +14,5 @@
 
 主界面主要是显示**时间,日期**，另外两个按钮为**进入文件系统(蓝色)**，和**自动连接网络(第二阶段开发内容，目前无任何操作)**</br>
 
-* 2017.05.19 更新 **Android Studio** 配置;</br>
+* 2017.05.19 更新 **Android Studio** 配置，**SDK** 更新;编写`TxtReader`,`ProcessTxt`,`MainPreView`及界面，File 文件输入的问题还是没有解决</br>
+<div align=center><img  width="533" height="400" src="https://raw.githubusercontent.com/LeoLiu8023AmyLu/AX-EDP/master/ScreenCapture/device-2017-05-19-193455.png"/></div></br>
