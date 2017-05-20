@@ -9,7 +9,7 @@
 
 ## 工作记录</br>
 
-* 2017.05.18 搭建Android Studio 环境，安装Git，重新编写 **安夏电子席卡题词机项目分支** 程序</br>
+* 2017.05.18 搭建**Android Studio**环境，安装**Git**，重新编写 **安夏电子席卡题词机项目分支** 程序</br>
 <div align=center><img  width="533" height="400" src="https://raw.githubusercontent.com/LeoLiu8023AmyLu/AX-EDP/master/ScreenCapture/device-2017-05-18-164156.png"/></div></br>
 
 主界面主要是显示**时间,日期**，另外两个按钮为**进入文件系统(蓝色)**，和**自动连接网络(第二阶段开发内容，目前无任何操作)**</br>
@@ -26,3 +26,6 @@
 ```java
 PreView_Text.setText(Main_string.substring(Page_Text_Num*(Text_Page-1),Page_Text_Num*Text_Page));
 ```
+
+* 2017.05.20 今天受到了朋友圈的各种伤害，于是我默默的去码代码了，Git一下，来平静一下我复杂的心情</br>
+    > 更新程序注释，对比 `Txtreader`与`ProcessTxt`两个不同代码的区别，主要区别在文件的读取方式</br>
