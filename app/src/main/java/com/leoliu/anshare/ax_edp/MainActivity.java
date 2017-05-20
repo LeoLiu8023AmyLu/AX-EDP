@@ -15,8 +15,8 @@ import java.util.Calendar;
 
 public class MainActivity extends Activity {
 
-    private final int msgKey1 = 1;
-    private Boolean TimeFlag = true;                // 时间更新 标识符
+    private final int msgKey1 = 1;      // Handle 标识符
+    private Boolean TimeFlag = true;    // 时间更新 标识符
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +29,7 @@ public class MainActivity extends Activity {
 		 * 初始化 电子席卡的数值
 		 * 用一个线程不断更新时间
 		 */
+        TimeFlag = true; // 初始化 就打开时间更新 Flag
         new TimeThread().start();   // 开始时间更新线程
     }
     /**
@@ -47,7 +48,9 @@ public class MainActivity extends Activity {
         if(getRequestedOrientation()!= ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE){
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
-        if (TimeFlag) {}
+        if (TimeFlag) {
+            // 无动作
+        }
         else{
             TimeFlag = true;
         }

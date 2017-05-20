@@ -41,7 +41,7 @@ public class TxtReader {
 	 * @return
 	 */
 	public static String getString(String filepath) {
-		File file = new File(filepath);
+		File file = new File(filepath); 	// 使用文件路径 创建 File 类型文件
 		FileInputStream fileInputStream = null;
 		try {
 			fileInputStream = new FileInputStream(file);
