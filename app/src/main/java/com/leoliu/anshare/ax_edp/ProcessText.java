@@ -12,7 +12,7 @@ import java.nio.charset.Charset;
 public class ProcessText {
 
     private long pages;             //总页数
-    private final int SIZE = 900;   //每一页的字节数 字节数固定
+    private final int SIZE = 200;   //每一页的字节数 字节数固定
     private long bytescount;        //字节总数
     private long currentpage;       //当前页面
     private RandomAccessFile readFile;
@@ -37,12 +37,10 @@ public class ProcessText {
         }
     }
     /**
-     *
      * 固定读取 SIZE+30个字节的内容 为什么+30 ？
      * 读取的为字节 需要进行转码 转码不可能刚好转的就是文本内容,
      * 一页的末尾 和开始出有可能乱码 每一次多读30个字节 是为了第一页乱码位置
      * 在第二页就可以正常显示出内容 不影响阅读
-     *
      */
     private String read(){
         //内容重叠防止 末尾字节乱码

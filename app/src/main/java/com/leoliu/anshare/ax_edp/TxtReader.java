@@ -10,7 +10,6 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
 public class TxtReader {
-
 	/**
 	 * inputstream 输入类型
 	 * @param inputStream
@@ -36,7 +35,6 @@ public class TxtReader {
 		}
 		return sb.toString();
 	}
-
 	/**
 	 * 路径输入类型
 	 * @param filepath

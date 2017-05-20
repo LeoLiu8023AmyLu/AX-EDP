@@ -80,7 +80,6 @@ public class MainActivity extends Activity {
             } while (TimeFlag);
         }
     }
-
     /*
      * 读取时间，将时间反馈到界面
      */
@@ -102,7 +101,7 @@ public class MainActivity extends Activity {
                     int week = c.get(Calendar.DAY_OF_WEEK);
                     String[] weekname = {"周日", "周一", "周二", "周三", "周四", "周五", "周六"};
                     // 更新 UI
-                    if(TimeFlag) {
+                    if(TimeFlag) { // 重要判断 防止退出时资源冲突
                         MainTime.setText(sysTimeStr); // 设置时间
                         MainDate.setText(sysDateStr + "  " + weekname[week - 1]); // 设置日期
                     }
@@ -112,5 +111,4 @@ public class MainActivity extends Activity {
             }
         }
     };
-
 }
