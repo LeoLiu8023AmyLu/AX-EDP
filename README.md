@@ -6,7 +6,6 @@
 * 项目采用 **小米平板2** 作为蓝本开发，分辨率为 **2048x1536** </br>
 * 项目Android 版本使用 **25** 版本 **Android 7.1.1 (Nougat)** </br>
 
-
 ## 工作记录</br>
 
 * 2017.05.18 搭建**Android Studio**环境，安装**Git**，重新编写 **安夏电子席卡题词机项目分支** 程序</br>
@@ -18,10 +17,10 @@
 
 <div align=center><img  width="480" height="270" src="https://raw.githubusercontent.com/LeoLiu8023AmyLu/AX-EDP/master/ScreenCapture/device-2017-05-19-193455.png"/></div></br>
 
-目前txt文本读取的是 `\raw\a.txt` 文件夹下的文件</br>
-使用的是 `InputStream inputStream = getResources().openRawResource(R.raw.a);` 语句进行读取</br>
-然后经过编码返回 `String` 类型字符串</br>
-程序如下:</br>
+>目前txt文本读取的是 `\raw\a.txt` 文件夹下的文件 </br>
+>使用的是 `InputStream inputStream = getResources().openRawResource(R.raw.a);` 语句进行读取</br>
+>然后经过编码返回 `String` 类型字符串</br>
+>程序如下:</br>
 
 ```java
 PreView_Text.setText(Main_string.substring(Page_Text_Num*(Text_Page-1),Page_Text_Num*Text_Page));
@@ -29,3 +28,5 @@ PreView_Text.setText(Main_string.substring(Page_Text_Num*(Text_Page-1),Page_Text
 
 * 2017.05.20 今天受到了朋友圈的各种伤害，于是我默默的去码代码了，Git一下，来平静一下我复杂的心情</br>
     > 更新程序注释，对比 `Txtreader`与`ProcessTxt`两个不同代码的区别，主要区别在文件的读取方式</br>
+    
+* 2017.05.21 研究 `FileManager` 的程序文件，学习**文件目录操作函数方法**</br>
