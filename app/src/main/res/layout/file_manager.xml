@@ -93,7 +93,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.3"
                     android:background="#77FF55"
-                    android:text="@string/EDP_PutIn"
+                    android:text="预览"
                     android:textSize="20sp" />
 
             </LinearLayout>
