@@ -32,3 +32,4 @@ PreView_Text.setText(Main_string.substring(Page_Text_Num*(Text_Page-1),Page_Text
 * 2017.05.21 研究 `FileManager` 的程序文件，学习**文件目录操作函数方法**</br>
 * 2017.05.22 测试 `FileManager` 程序，发现读取`emulated`,`sdcard`等目录存在问题;需要查找问题</br>
     > 研究发现:获取**U盘挂载路径**，**U盘、SD卡等外接存储设备**的挂载，大部分都是在`/system/etc/vold.fstab`中指定了挂载路径，这么说就简单了吧；直接读取改文件，就可以知道U盘被挂载到哪个目录了，放心的是，基本上都再`/mnt`目录下</br>
+    > 编写文件导入界面`file_manager` 页面文件</br>
