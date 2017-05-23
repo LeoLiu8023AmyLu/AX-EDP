@@ -83,7 +83,7 @@ public class MainPreView extends Fragment {
             public void onClick(View v) {
                 //do something
 
-                getFragmentManager().beginTransaction().replace(R.id.container, new MainWindow()).commit();
+                getFragmentManager().beginTransaction().replace(R.id.container, new FileManager()).commit();
             }
         });
         return rootView;

@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:textAppearance="?android:attr/textAppearanceLarge"
     android:gravity="center_vertical"
-    android:paddingLeft="5dip"
-    android:singleLine="true">
+    android:paddingLeft="5dp"
+    android:textSize="20dp"
+    >
 </TextView>

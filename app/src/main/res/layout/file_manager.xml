@@ -26,8 +26,13 @@
             android:layout_weight="0.9"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="0dp" >
+            android:layout_marginTop="0dp"
+            android:orientation="horizontal">
 
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/android:list" />
 
         </LinearLayout>
 
@@ -49,7 +54,7 @@
                 android:orientation="vertical" >
 
                 <Button
-                    android:id="@+id/FSet4_back"
+                    android:id="@+id/File_Button_back"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.3"
@@ -69,7 +74,7 @@
                 android:orientation="vertical" >
 
                 <Button
-                    android:id="@+id/FSet4_preview"
+                    android:id="@+id/File_Button_U"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.3"
@@ -88,12 +93,12 @@
                 android:orientation="vertical" >
 
                 <Button
-                    android:id="@+id/FSet4_next"
+                    android:id="@+id/File_Button_next"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.3"
                     android:background="#77FF55"
-                    android:text="预览"
+                    android:text="显示"
                     android:textSize="20sp" />
 
             </LinearLayout>
