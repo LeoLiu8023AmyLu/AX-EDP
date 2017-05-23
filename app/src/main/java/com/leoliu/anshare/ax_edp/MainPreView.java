@@ -27,7 +27,7 @@ public class MainPreView extends Fragment {
         View rootView = inflater.inflate(R.layout.main_preview, container, false);
         // 关闭时间自动更新
         MainActivity MA=(MainActivity) new MainActivity();
-        MA.Set_Time_Flag();
+        MA.Set_Time_Flag(false);
         //初始化 控件
         final TextView PreView_Text= (TextView) rootView.findViewById(R.id.MainPreView_Text);
         InputStream inputStream = getResources().openRawResource(R.raw.a);
@@ -76,13 +76,13 @@ public class MainPreView extends Fragment {
                 Toast.makeText(getActivity(), "向下翻页 Page:"+Text_Page+"",Toast.LENGTH_SHORT).show();
             }
         });
-        //预览显示
+        // 返回上一页面
         Button F_text_Back=(Button)rootView.findViewById(R.id.F_text_Back);
         F_text_Back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //do something
-                // getFragmentManager().beginTransaction().remove(new MainPreView()).commit();
+
                 getFragmentManager().beginTransaction().replace(R.id.container, new MainWindow()).commit();
             }
         });

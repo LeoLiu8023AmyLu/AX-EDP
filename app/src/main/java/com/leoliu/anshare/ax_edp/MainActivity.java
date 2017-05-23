@@ -16,7 +16,7 @@ import java.util.Calendar;
 public class MainActivity extends Activity {
 
     private final int msgKey1 = 1;      // Handle 标识符
-    boolean TimeFlag = false;    // 时间更新 标识符
+    private boolean TimeFlag = false;    // 时间更新 标识符
     TimeThread TimeT= new TimeThread();   // 开始时间更新线程
     Thread ConTrol_Thread = new Control(TimeT);
 
@@ -31,15 +31,26 @@ public class MainActivity extends Activity {
 		 * 初始化 电子席卡的数值
 		 * 用一个线程不断更新时间
 		 */
-        TimeFlag=true;
+        Set_Time_Flag(true);
         TimeT.setRun();
         ConTrol_Thread.setDaemon(true);
         TimeT.start();
         ConTrol_Thread.start();
     }
-    public void Set_Time_Flag()
+
+    /**
+     *
+     * 设置线程控制符
+     */
+    public void Set_Time_Flag(boolean Flag)
     {
-        this.TimeFlag=false;
+        this.TimeFlag=Flag;
+        if(!Flag){
+            TimeT.setStop();
+        }
+        else{
+            TimeT.setRun();
+        }
     }
     /**
      *  退出关闭线程
@@ -57,6 +68,7 @@ public class MainActivity extends Activity {
         if(getRequestedOrientation()!= ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE){
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
+        TimeFlag = true;
         super.onResume();
     }
     /**
@@ -67,35 +79,36 @@ public class MainActivity extends Activity {
             TimeFlag = false;
         }
         super.onDestroy();
-    };
+    }
     /*
      * 时间更新
      */
-    private class TimeThread extends Thread {
+    class TimeThread extends Thread {
         private boolean isRun;
         @Override
         public void run() {
-            while (isRun)
+            while (isRun && TimeFlag)
             {
-                System.out.println("Thread: "+Thread.currentThread().getName() + " 运行中.");
+                System.out.println("Thread: "+TimeT.currentThread().getName() + " 开始运行");
                 try {
                     Thread.sleep(1000);// 一秒的时间间隔
-                    Message msg = new Message();
-                    msg.what = msgKey1;
-                    mHandler.sendMessage(msg);
+                    System.out.println("--> Time_Flag: "+TimeFlag);
+                    if(TimeFlag) {
+                        Message msg = new Message();
+                        msg.what = msgKey1;
+                        mHandler.sendMessage(msg);
+                    }
                 }
                 catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("Thread: "+Thread.currentThread().getName() + " 结束.");
+                System.out.println("Thread: "+TimeT.currentThread().getName() + " 结束");
             }
+            System.out.println("Thread: "+TimeT.currentThread().getName() + " 运行中....");
         }
         /*
         控制线程
          */
-        public void setFlag(boolean flag) {
-            this.isRun = flag;
-        }
         public void setRun() {
             this.isRun = true;
         }
@@ -117,7 +130,8 @@ public class MainActivity extends Activity {
                 {
                     t.setRun();
                 }
-                else{
+                else
+                {
                     t.setStop();
                 }
             }
