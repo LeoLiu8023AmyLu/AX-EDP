@@ -37,4 +37,4 @@
     > Thread 控制有两种方法，一种是使用 `while(Flag)` 形式, `Flag` 作为标识符来控制 `while` 循环，但是存在问题。</br>
     > 使用列表 `ListView` 显示出来，点击事件可以获取到完整地址</br>
 
-<div align=center><img  width="480" height="270" src="https://raw.githubusercontent.com/LeoLiu8023AmyLu/AX-EDP/master/ScreenCapture/device-2017-05-23-205528.png"/></div> </br>
+<div align=center><img  width="480" height="270" src="https://raw.githubusercontent.com/LeoLiu8023AmyLu/AX-EDP/master/ScreenCapture/device-2017-05-23-210644.png"/></div> </br>
