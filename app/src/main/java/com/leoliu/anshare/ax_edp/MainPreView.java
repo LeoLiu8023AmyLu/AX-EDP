@@ -25,6 +25,9 @@ public class MainPreView extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View rootView = inflater.inflate(R.layout.main_preview, container, false);
+        // 关闭时间自动更新
+        MainActivity MA=(MainActivity) new MainActivity();
+        MA.Set_Time_Flag();
         //初始化 控件
         final TextView PreView_Text= (TextView) rootView.findViewById(R.id.MainPreView_Text);
         InputStream inputStream = getResources().openRawResource(R.raw.a);
@@ -79,7 +82,7 @@ public class MainPreView extends Fragment {
             @Override
             public void onClick(View v) {
                 //do something
-                getFragmentManager().beginTransaction().remove(new MainPreView()).commit();
+                // getFragmentManager().beginTransaction().remove(new MainPreView()).commit();
                 getFragmentManager().beginTransaction().replace(R.id.container, new MainWindow()).commit();
             }
         });

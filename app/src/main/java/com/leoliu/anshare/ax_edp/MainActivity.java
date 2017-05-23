@@ -16,7 +16,9 @@ import java.util.Calendar;
 public class MainActivity extends Activity {
 
     private final int msgKey1 = 1;      // Handle 标识符
-    private Boolean TimeFlag = true;    // 时间更新 标识符
+    boolean TimeFlag = false;    // 时间更新 标识符
+    TimeThread TimeT= new TimeThread();   // 开始时间更新线程
+    Thread ConTrol_Thread = new Control(TimeT);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +31,20 @@ public class MainActivity extends Activity {
 		 * 初始化 电子席卡的数值
 		 * 用一个线程不断更新时间
 		 */
-        TimeFlag = true; // 初始化 就打开时间更新 Flag
-        new TimeThread().start();   // 开始时间更新线程
+        TimeFlag=true;
+        TimeT.setRun();
+        ConTrol_Thread.setDaemon(true);
+        TimeT.start();
+        ConTrol_Thread.start();
+    }
+    public void Set_Time_Flag()
+    {
+        this.TimeFlag=false;
     }
     /**
      *  退出关闭线程
      */
-    public void stop() {
+    protected void stop() {
         if (TimeFlag) {
             TimeFlag = false;
         }
@@ -47,12 +56,6 @@ public class MainActivity extends Activity {
          */
         if(getRequestedOrientation()!= ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE){
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        }
-        if (TimeFlag) {
-            // 无动作
-        }
-        else{
-            TimeFlag = true;
         }
         super.onResume();
     }
@@ -68,19 +71,56 @@ public class MainActivity extends Activity {
     /*
      * 时间更新
      */
-    public class TimeThread extends Thread {
+    private class TimeThread extends Thread {
+        private boolean isRun;
         @Override
         public void run() {
-            do {
+            while (isRun)
+            {
+                System.out.println("Thread: "+Thread.currentThread().getName() + " 运行中.");
                 try {
                     Thread.sleep(1000);// 一秒的时间间隔
                     Message msg = new Message();
                     msg.what = msgKey1;
                     mHandler.sendMessage(msg);
-                } catch (InterruptedException e) {
+                }
+                catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            } while (TimeFlag);
+                System.out.println("Thread: "+Thread.currentThread().getName() + " 结束.");
+            }
+        }
+        /*
+        控制线程
+         */
+        public void setFlag(boolean flag) {
+            this.isRun = flag;
+        }
+        public void setRun() {
+            this.isRun = true;
+        }
+        public void setStop() {
+            this.isRun = false;
+        }
+    }
+    /**
+     * 控制线程
+     */
+    class Control extends Thread {
+        private TimeThread t;
+        public Control(TimeThread t) {
+            this.t = t;
+        }
+        public void run() {
+            while(true) {
+                if(TimeFlag)
+                {
+                    t.setRun();
+                }
+                else{
+                    t.setStop();
+                }
+            }
         }
     }
     /*
@@ -96,17 +136,23 @@ public class MainActivity extends Activity {
                     long sysTime = System.currentTimeMillis();
                     CharSequence sysTimeStr = DateFormat.format("HH:mm:ss", sysTime); // 获取时间
                     CharSequence sysDateStr = DateFormat.format("yyyy-MM-dd", sysTime); // 获取日期
-                    // 获取控件
-                    TextView MainTime = (TextView) findViewById(R.id.MainTime);
-                    TextView MainDate = (TextView) findViewById(R.id.MainDate);
                     // 解算时间
                     Calendar c = Calendar.getInstance();
                     int week = c.get(Calendar.DAY_OF_WEEK);
                     String[] weekname = {"周日", "周一", "周二", "周三", "周四", "周五", "周六"};
-                    // 更新 UI
-                    if(TimeFlag) { // 重要判断 防止退出时资源冲突
-                        MainTime.setText(sysTimeStr); // 设置时间
-                        MainDate.setText(sysDateStr + "  " + weekname[week - 1]); // 设置日期
+                    try {
+
+                        if (TimeFlag) { // 重要判断 防止退出时资源冲突
+                            // 获取控件
+                            TextView MainTime = (TextView) findViewById(R.id.MainTime);
+                            TextView MainDate = (TextView) findViewById(R.id.MainDate);
+                            // 更新 UI
+                            MainTime.setText(sysTimeStr); // 设置时间
+                            MainDate.setText(sysDateStr + "  " + weekname[week - 1]); // 设置日期
+                        }
+                    }
+                    catch (Exception ex){
+                        System.out.println("Error :" + ex.getMessage());
                     }
                     break;
                 default:

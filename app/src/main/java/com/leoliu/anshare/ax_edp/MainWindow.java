@@ -30,8 +30,10 @@ public class MainWindow extends Fragment {
             @Override
             public void onClick(View v) {
                 // 进入下一个 Fragment
-                getFragmentManager().beginTransaction().add(R.id.container, new MainPreView()).commit();
-                getFragmentManager().beginTransaction().remove(new MainWindow()).commit();
+                MainActivity MA = (MainActivity) new MainActivity();
+                MA.Set_Time_Flag();
+                getFragmentManager().beginTransaction().replace(R.id.container, new MainPreView()).commit();
+                // getFragmentManager().beginTransaction().remove(new MainWindow()).commit();
             }
         });
         Button MainAutoSetBT = (Button) rootView.findViewById(R.id.button_MainAutoset);
@@ -39,6 +41,8 @@ public class MainWindow extends Fragment {
             @Override
             public void onClick(View v) {
                 //do something
+                MainActivity MA = (MainActivity) new MainActivity();
+                MA.Set_Time_Flag();
                 Toast.makeText(getActivity(), "暂不支持此项功能，请等待开发完成", Toast.LENGTH_SHORT).show();
             }
         });
