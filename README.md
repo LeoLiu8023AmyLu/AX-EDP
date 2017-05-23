@@ -35,7 +35,6 @@
     > 编写文件导入界面`file_manager` 页面文件</br>
 * 2017.05.23 学习解决 `Thread` 线程问题，但是遇到了困难，无法控制线程暂停，从而影响资源;文件目录获取到并通过列表显示出来，目前需要优化</br>
     > Thread 控制有两种方法，一种是使用 `while(Flag)` 形式, `Flag` 作为标识符来控制 `while` 循环，但是存在问题。</br>
-
-<div align=center><img  width="480" height="270" src="https://raw.githubusercontent.com/LeoLiu8023AmyLu/AX-EDP/master/ScreenCapture/device-2017-05-23-204930.png"/></div></br>
-
     > 使用列表 `ListView` 显示出来，点击事件可以获取到完整地址</br>
+
+<div align=center><img  width="480" height="270" src="https://raw.githubusercontent.com/LeoLiu8023AmyLu/AX-EDP/master/ScreenCapture/device-2017-05-23-204930.png"/></div> </br>
