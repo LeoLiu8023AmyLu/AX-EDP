@@ -4,8 +4,6 @@ package com.leoliu.anshare.ax_edp;
  * Created by Anshare_LY on 2017/5/23.
  */
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.os.Environment;
@@ -13,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -38,6 +35,7 @@ public class FileManager extends ListFragment {
     int[] to = {R.id.FileTextView};
 
     private String TextFilePath;
+
     public FileManager() {
     }
 
@@ -49,15 +47,15 @@ public class FileManager extends ListFragment {
          * @ 功能：后退，翻页
          */
         //页面控制
-        Button File_Button_U=(Button)rootView.findViewById(R.id.File_Button_U);
+        Button File_Button_U = (Button) rootView.findViewById(R.id.File_Button_U);
         File_Button_U.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 显示 U 盘路径
-                Toast.makeText(getActivity(), "显示优盘目录"+"",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "显示优盘目录" + "", Toast.LENGTH_SHORT).show();
             }
         });
-        Button File_Button_next=(Button)rootView.findViewById(R.id.File_Button_next);
+        Button File_Button_next = (Button) rootView.findViewById(R.id.File_Button_next);
         File_Button_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,11 +63,11 @@ public class FileManager extends ListFragment {
             }
         });
         // 返回上一页面
-        Button File_Button_back=(Button)rootView.findViewById(R.id.File_Button_back);
+        Button File_Button_back = (Button) rootView.findViewById(R.id.File_Button_back);
         File_Button_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity MA=new MainActivity();
+                MainActivity MA = new MainActivity();
                 MA.Set_Time_Flag(true);
                 getFragmentManager().beginTransaction().replace(R.id.container, new MainWindow()).commit();
             }
@@ -114,6 +112,7 @@ public class FileManager extends ListFragment {
         }
         return list;
     }
+
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
@@ -139,8 +138,8 @@ public class FileManager extends ListFragment {
 
             Toast toast = Toast.makeText(getActivity(), itemList.get(position).get(COLUMN_NAME_NAME) + " is a file", Toast.LENGTH_SHORT);
             toast.show();
-            TextFilePath=curPath+itemList.get(position).get(COLUMN_NAME_NAME);
-            Toast.makeText(getActivity(), "文件完整地址:\n"+TextFilePath,Toast.LENGTH_LONG).show();
+            TextFilePath = curPath + itemList.get(position).get(COLUMN_NAME_NAME);
+            Toast.makeText(getActivity(), "文件完整地址:\n" + TextFilePath, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -150,6 +149,6 @@ public class FileManager extends ListFragment {
         adapter = new SimpleAdapter(getActivity(), itemList, R.layout.list_item, from, to);
         setListAdapter(adapter);
         adapter.notifyDataSetChanged();
-        Toast.makeText(getActivity(), "当前地址:\n"+path,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "当前地址:\n" + path, Toast.LENGTH_SHORT).show();
     }
 }

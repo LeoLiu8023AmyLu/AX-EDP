@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:scrollbars="vertical"
-    tools:context="com.leoliu.anshare.ax_edp.MainActivity" >
+    tools:context="com.leoliu.anshare.ax_edp.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -26,7 +26,7 @@
             android:layout_weight="0.9"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="0dp" >
+            android:layout_marginTop="0dp">
 
             <LinearLayout
                 android:layout_width="700dp"
@@ -35,7 +35,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_weight="0.75"
                 android:gravity="center"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/MainPreView_Text"
@@ -49,7 +49,7 @@
                     android:ems="10" />
 
             </LinearLayout>
-            
+
         </LinearLayout>
 
         <LinearLayout
@@ -59,14 +59,14 @@
             android:layout_gravity="center"
             android:layout_marginRight="20dp"
             android:gravity="center"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="0.33"
                 android:gravity="center"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/F_text_Up"
@@ -84,7 +84,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.33"
                 android:gravity="center"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/F_text_Down"
@@ -102,7 +102,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.33"
                 android:gravity="center"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/F_text_Back"
@@ -114,7 +114,7 @@
                     android:textSize="20sp" />
 
             </LinearLayout>
-            
+
         </LinearLayout>
     </LinearLayout>
 

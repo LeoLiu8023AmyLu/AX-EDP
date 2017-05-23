@@ -4,8 +4,6 @@ package com.leoliu.anshare.ax_edp;
  * Created by Anshare_LY on 2017/5/18.
  */
 
-import java.util.Calendar;
-
 import android.app.Fragment;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -15,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 public class MainWindow extends Fragment {
 

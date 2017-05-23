@@ -1,14 +1,11 @@
 package com.leoliu.anshare.ax_edp;
 
-import android.content.pm.ActivityInfo;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.app.Activity;
-import android.graphics.Typeface;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.format.DateFormat;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -17,7 +14,7 @@ public class MainActivity extends Activity {
 
     private final int msgKey1 = 1;      // Handle 标识符
     private boolean TimeFlag = false;    // 时间更新 标识符
-    TimeThread TimeT= new TimeThread();   // 开始时间更新线程
+    TimeThread TimeT = new TimeThread();   // 开始时间更新线程
     Thread ConTrol_Thread = new Control(TimeT);
 
     @Override
@@ -28,7 +25,7 @@ public class MainActivity extends Activity {
             getFragmentManager().beginTransaction().add(R.id.container, new MainWindow()).commit();
         }
         /*
-		 * 初始化 电子席卡的数值
+         * 初始化 电子席卡的数值
 		 * 用一个线程不断更新时间
 		 */
         Set_Time_Flag(true);
@@ -39,40 +36,40 @@ public class MainActivity extends Activity {
     }
 
     /**
-     *
      * 设置线程控制符
      */
-    public void Set_Time_Flag(boolean Flag)
-    {
-        this.TimeFlag=Flag;
-        if(!Flag){
+    public void Set_Time_Flag(boolean Flag) {
+        this.TimeFlag = Flag;
+        if (!Flag) {
             TimeT.setStop();
-        }
-        else{
+        } else {
             TimeT.setRun();
         }
     }
+
     /**
-     *  退出关闭线程
+     * 退出关闭线程
      */
     protected void stop() {
         if (TimeFlag) {
             TimeFlag = false;
         }
     }
+
     @Override
     protected void onResume() {
         /**
          * 设置为横屏
          */
-        if(getRequestedOrientation()!= ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE){
+        if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
         TimeFlag = true;
         super.onResume();
     }
+
     /**
-     *  销毁Activity时再次确认关闭线程
+     * 销毁Activity时再次确认关闭线程
      */
     protected void onDestroy() {
         if (TimeFlag) {
@@ -80,63 +77,66 @@ public class MainActivity extends Activity {
         }
         super.onDestroy();
     }
+
     /*
      * 时间更新
      */
     class TimeThread extends Thread {
         private boolean isRun;
+
         @Override
         public void run() {
-            while (isRun && TimeFlag)
-            {
-                System.out.println("Thread: "+TimeT.currentThread().getName() + " 开始运行");
+            while (isRun && TimeFlag) {
+                System.out.println("Thread: " + TimeT.currentThread().getName() + " 开始运行");
                 try {
                     Thread.sleep(1000);// 一秒的时间间隔
-                    System.out.println("--> Time_Flag: "+TimeFlag);
-                    if(TimeFlag) {
+                    System.out.println("--> Time_Flag: " + TimeFlag);
+                    if (TimeFlag) {
                         Message msg = new Message();
                         msg.what = msgKey1;
                         mHandler.sendMessage(msg);
                     }
-                }
-                catch (InterruptedException e) {
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("Thread: "+TimeT.currentThread().getName() + " 结束");
+                System.out.println("Thread: " + TimeT.currentThread().getName() + " 结束");
             }
-            System.out.println("Thread: "+TimeT.currentThread().getName() + " 运行中....");
+            System.out.println("Thread: " + TimeT.currentThread().getName() + " 运行中....");
         }
+
         /*
         控制线程
          */
         public void setRun() {
             this.isRun = true;
         }
+
         public void setStop() {
             this.isRun = false;
         }
     }
+
     /**
      * 控制线程
      */
     class Control extends Thread {
         private TimeThread t;
+
         public Control(TimeThread t) {
             this.t = t;
         }
+
         public void run() {
-            while(true) {
-                if(TimeFlag)
-                {
+            while (true) {
+                if (TimeFlag) {
                     t.setRun();
-                }
-                else
-                {
+                } else {
                     t.setStop();
                 }
             }
         }
     }
+
     /*
      * 读取时间，将时间反馈到界面
      */
@@ -164,8 +164,7 @@ public class MainActivity extends Activity {
                             MainTime.setText(sysTimeStr); // 设置时间
                             MainDate.setText(sysDateStr + "  " + weekname[week - 1]); // 设置日期
                         }
-                    }
-                    catch (Exception ex){
+                    } catch (Exception ex) {
                         System.out.println("Error :" + ex.getMessage());
                     }
                     break;
