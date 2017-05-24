@@ -55,7 +55,7 @@ public class MainActivity extends Activity {
         System.out.println("-->收到的设置:"+TimeFlag+"");
         System.out.println("-->TimeT ID:"+TimeT.getId()+"\n-->TimeT 名称: "+TimeT.getName()+"\n-->线程状态:"+TimeT.getState());
         System.out.println("-->ConTrol_Thread ID:"+ConTrol_Thread.getId()+"\n-->ConTrol_Thread 名称: "+ConTrol_Thread.getName()+"\n-->线程状态:"+ConTrol_Thread.getState());
-
+        /*
         if(Flag){
             // 重启线程
             TimeFlag = true;
@@ -70,7 +70,7 @@ public class MainActivity extends Activity {
                 ConTrol_Thread.run();
             }
             System.out.println("-->当前线程:"+Thread.currentThread().getName()+" 状态:"+Thread.currentThread().getState());
-        }
+        }*/
     }
     /**
      * 获取文件完整路径
