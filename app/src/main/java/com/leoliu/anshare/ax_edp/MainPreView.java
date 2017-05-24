@@ -35,7 +35,15 @@ public class MainPreView extends Fragment {
         final TextView PreView_Text = (TextView) rootView.findViewById(R.id.MainPreView_Text);
         InputStream inputStream = getResources().openRawResource(R.raw.a);
         final String Main_string;
-        Main_string = TxtReader.getString(inputStream);
+        String Txt_File_Path=MA.Get_Text_File_Path();
+        Toast.makeText(getActivity(), "文件地址:\n" + Txt_File_Path + "", Toast.LENGTH_SHORT).show();
+        if(Txt_File_Path.equals("")) {
+            Main_string = TxtReader.getString(inputStream);
+        }
+        else{
+            Toast.makeText(getActivity(), "文件地址:\n" + Txt_File_Path + "", Toast.LENGTH_SHORT).show();
+            Main_string = TxtReader.getString(Txt_File_Path);
+        }
         File TxtFile = new File("Leo.txt");
         inputstreamtofile(inputStream, TxtFile);
         final ProcessText PT = new ProcessText(TxtFile, 1);
@@ -83,7 +91,6 @@ public class MainPreView extends Fragment {
             @Override
             public void onClick(View v) {
                 //do something
-
                 getFragmentManager().beginTransaction().replace(R.id.container, new FileManager()).commit();
             }
         });

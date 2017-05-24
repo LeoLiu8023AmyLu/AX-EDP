@@ -45,3 +45,6 @@
     > <div align=center><img  width="480" height="270" src="https://raw.githubusercontent.com/LeoLiu8023AmyLu/AX-EDP/master/ScreenCapture/device-2017-05-23-210722.png"/></div> </br>
     
     > 将路径`path`与文件名组合在一起便可以得到完整的路径</br>
+* 2017.05.24 加入文件类型判断程序 (判断`txt` 类型); 加入**OTG USB** 识别程序;</br>
+    > 尝试解决线程问题，在标识符前加入 `static` 可以停止线程，但是不能有效**重启/继续**线程</br>
+    > OTG USB </br>

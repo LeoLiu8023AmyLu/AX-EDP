@@ -1,21 +1,28 @@
 package com.leoliu.anshare.ax_edp;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
+import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.format.DateFormat;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
 public class MainActivity extends Activity {
 
-    private final int msgKey1 = 1;      // Handle 标识符
-    private boolean TimeFlag = false;    // 时间更新 标识符
-    TimeThread TimeT = new TimeThread();   // 开始时间更新线程
-    Thread ConTrol_Thread = new Control(TimeT);
+    private final int msgKey1 = 1;                  // Handle 标识符
+    private static boolean TimeFlag = true;         // 时间更新 标识符
+    final TimeThread TimeT = new TimeThread();      // 开始时间更新线程
+    final Thread ConTrol_Thread = new Control(TimeT);
+    static  String TextFilePath="";                 // 文件地址
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,27 +31,56 @@ public class MainActivity extends Activity {
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction().add(R.id.container, new MainWindow()).commit();
         }
+        Thread_Start();
+    }
+    /**
+     * 线程初始化
+     */
+    private void Thread_Start(){
         /*
          * 初始化 电子席卡的数值
 		 * 用一个线程不断更新时间
 		 */
-        Set_Time_Flag(true);
+        TimeFlag = true;
         TimeT.setRun();
         ConTrol_Thread.setDaemon(true);
         TimeT.start();
         ConTrol_Thread.start();
     }
-
     /**
      * 设置线程控制符
      */
     public void Set_Time_Flag(boolean Flag) {
-        this.TimeFlag = Flag;
-        if (!Flag) {
-            TimeT.setStop();
-        } else {
-            TimeT.setRun();
+        TimeFlag = Flag;
+        System.out.println("-->收到的设置:"+TimeFlag+"");
+        System.out.println("-->TimeT ID:"+TimeT.getId()+"\n-->TimeT 名称: "+TimeT.getName()+"\n-->线程状态:"+TimeT.getState());
+        System.out.println("-->ConTrol_Thread ID:"+ConTrol_Thread.getId()+"\n-->ConTrol_Thread 名称: "+ConTrol_Thread.getName()+"\n-->线程状态:"+ConTrol_Thread.getState());
+
+        if(Flag){
+            // 重启线程
+            TimeFlag = true;
+            if(TimeT.currentThread().getState()!=Thread.State.RUNNABLE)
+            {
+                TimeT.start();
+            }
+            else if(TimeT.getState()==Thread.State.NEW){
+                System.out.println("-->要启动线程");
+                TimeT.setRun();
+                //notify();
+            }
+            System.out.println("-->当前线程:"+Thread.currentThread().getName()+" 状态:"+Thread.currentThread().getState());
         }
+    }
+    /**
+     * 获取文件完整路径
+     */
+    public void Set_Text_File_Path(String FilePath){
+        TextFilePath=FilePath;
+        System.out.println("-->收到的文件地址:"+FilePath+"");
+    }
+    public  String Get_Text_File_Path(){
+        System.out.println("-->回传的文件地址:"+TextFilePath+"");
+        return TextFilePath;
     }
 
     /**
@@ -66,6 +102,20 @@ public class MainActivity extends Activity {
         }
         TimeFlag = true;
         super.onResume();
+        // USB  状态监测
+        IntentFilter usbFilter = new IntentFilter();
+        usbFilter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
+        usbFilter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
+        registerReceiver(mUsbReceiver, usbFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        if (TimeFlag) {
+            TimeFlag = false;
+        }
+        super.onPause();
+        unregisterReceiver(mUsbReceiver);
     }
 
     /**
@@ -78,19 +128,33 @@ public class MainActivity extends Activity {
         super.onDestroy();
     }
 
+    private final BroadcastReceiver mUsbReceiver = new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            //tvInfo.append("BroadcastReceiver in\n");
+
+            if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
+                // tvInfo.append("ACTION_USB_DEVICE_ATTACHED\n");
+                Toast.makeText(context, "BroadcastReceiver in \n" + "ACTION_USB_DEVICE_ATTACHED", Toast.LENGTH_SHORT).show();
+            } else if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
+                // tvInfo.append("ACTION_USB_DEVICE_DETACHED\n");
+                Toast.makeText(context, "BroadcastReceiver in \n" + "ACTION_USB_DEVICE_DETACHED", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+
     /*
      * 时间更新
      */
     class TimeThread extends Thread {
         private boolean isRun;
-
         @Override
         public void run() {
             while (isRun && TimeFlag) {
-                System.out.println("Thread: " + TimeT.currentThread().getName() + " 开始运行");
+                // System.out.println("Thread: " + Thread.currentThread().getName() + " 开始运行");
                 try {
                     Thread.sleep(1000);// 一秒的时间间隔
-                    System.out.println("--> Time_Flag: " + TimeFlag);
+                    System.out.println("--> Time_Flag: " + TimeFlag+"\n-->Thread Name: "+Thread.currentThread().getName()+"\n-->TimeT: "+TimeT.getName());
                     if (TimeFlag) {
                         Message msg = new Message();
                         msg.what = msgKey1;
@@ -99,9 +163,8 @@ public class MainActivity extends Activity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("Thread: " + TimeT.currentThread().getName() + " 结束");
+                // System.out.println("Thread: " + Thread.currentThread().getName() + " 结束");
             }
-            System.out.println("Thread: " + TimeT.currentThread().getName() + " 运行中....");
         }
 
         /*

@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,16 +24,14 @@ import java.util.Stack;
 
 public class FileManager extends ListFragment {
 
-    public static final String COLUMN_NAME_NAME = "name";
-    private SimpleAdapter adapter = null;
-    private List<Map<String, Object>> itemList;
-    private Stack<String> pathHistory = null;
-    private String curPath;
-
-    String[] from = {COLUMN_NAME_NAME};
-    int[] to = {R.id.FileTextView};
-
-    private String TextFilePath;
+    public static final String COLUMN_NAME_NAME = "name";   // 列名称
+    private SimpleAdapter adapter = null;                   // 适配器
+    private List<Map<String, Object>> itemList;             // 列表文件
+    private Stack<String> pathHistory = null;               // 历史路径
+    private String curPath;                                 // 当前路径
+    String[] from = {COLUMN_NAME_NAME};                     // 从列中读取
+    int[] to = {R.id.FileTextView};                         // 列表显示文件
+    private String TextFilePath;                            // 文件地址
 
     public FileManager() {
     }
@@ -135,11 +132,13 @@ public class FileManager extends ListFragment {
             curPath = path;
         } else {
             // 装载文件
-
-            Toast toast = Toast.makeText(getActivity(), itemList.get(position).get(COLUMN_NAME_NAME) + " is a file", Toast.LENGTH_SHORT);
-            toast.show();
             TextFilePath = curPath + itemList.get(position).get(COLUMN_NAME_NAME);
             Toast.makeText(getActivity(), "文件完整地址:\n" + TextFilePath, Toast.LENGTH_LONG).show();
+            if((TextFilePath.substring((TextFilePath.length()-4),TextFilePath.length())).equals(".txt")){
+                MainActivity MA=new MainActivity();
+                MA.Set_Text_File_Path(TextFilePath);
+                Toast.makeText(getActivity(), itemList.get(position).get(COLUMN_NAME_NAME) + "是txt文件，已回传给MainActivity", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
