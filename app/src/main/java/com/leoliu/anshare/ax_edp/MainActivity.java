@@ -59,14 +59,15 @@ public class MainActivity extends Activity {
         if(Flag){
             // 重启线程
             TimeFlag = true;
-            if(TimeT.currentThread().getState()!=Thread.State.RUNNABLE)
+            if(TimeT.isRun!=true)
             {
                 TimeT.start();
+                ConTrol_Thread.start();
             }
             else if(TimeT.getState()==Thread.State.NEW){
                 System.out.println("-->要启动线程");
                 TimeT.setRun();
-                //notify();
+                ConTrol_Thread.run();
             }
             System.out.println("-->当前线程:"+Thread.currentThread().getName()+" 状态:"+Thread.currentThread().getState());
         }
