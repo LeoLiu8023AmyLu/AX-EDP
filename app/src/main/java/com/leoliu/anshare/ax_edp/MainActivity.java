@@ -132,13 +132,9 @@ public class MainActivity extends Activity {
     private final BroadcastReceiver mUsbReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            //tvInfo.append("BroadcastReceiver in\n");
-
             if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
-                // tvInfo.append("ACTION_USB_DEVICE_ATTACHED\n");
                 Toast.makeText(context, "BroadcastReceiver in \n" + "ACTION_USB_DEVICE_ATTACHED", Toast.LENGTH_SHORT).show();
             } else if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
-                // tvInfo.append("ACTION_USB_DEVICE_DETACHED\n");
                 Toast.makeText(context, "BroadcastReceiver in \n" + "ACTION_USB_DEVICE_DETACHED", Toast.LENGTH_SHORT).show();
             }
         }
@@ -155,7 +151,7 @@ public class MainActivity extends Activity {
                 // System.out.println("Thread: " + Thread.currentThread().getName() + " 开始运行");
                 try {
                     Thread.sleep(1000);// 一秒的时间间隔
-                    System.out.println("--> Time_Flag: " + TimeFlag+"\n-->Thread Name: "+Thread.currentThread().getName()+"\n-->TimeT: "+TimeT.getName());
+                    System.out.println("--> Time_Flag: " + TimeFlag+"\n-->TimeT: "+TimeT.getName()+"\n-->TimeT State: "+TimeT.getState());
                     if (TimeFlag) {
                         Message msg = new Message();
                         msg.what = msgKey1;
