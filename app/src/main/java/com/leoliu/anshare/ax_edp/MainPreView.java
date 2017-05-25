@@ -38,7 +38,7 @@ public class MainPreView extends Fragment {
         final String Main_string;
         String Txt_File_Path=MA.Get_Text_File_Path();
         if(Txt_File_Path.equals("")) {
-            Main_string = TxtReader.getString(inputStream);
+            Main_string = TxtReader.getString(inputStream,"utf-8");
         }
         else{
             Toast.makeText(getActivity(), "文件地址:\n" + Txt_File_Path + " Get", Toast.LENGTH_SHORT).show();

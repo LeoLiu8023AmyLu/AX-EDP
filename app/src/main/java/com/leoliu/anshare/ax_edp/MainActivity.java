@@ -13,8 +13,6 @@ import android.os.Message;
 import android.text.format.DateFormat;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.sql.Time;
 import java.util.Calendar;
 
 public class MainActivity extends Activity {
@@ -22,9 +20,8 @@ public class MainActivity extends Activity {
     private final int msgKey1 = 1;                  // Handle 标识符
     private static boolean TimeFlag = true;         // 时间更新 标识符
     private TimeThread TimeT = new TimeThread();      // 开始时间更新线程
-    //final Thread ConTrol_Thread = new Control(TimeT);
     static  String TextFilePath="";                 // 文件地址
-    static  String Thread_Name="Time-Thread";
+    static  String Thread_Name="Time-Thread";       // 线程名字
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +42,7 @@ public class MainActivity extends Activity {
 		 */
         TimeFlag = true;
         TimeT.setName(Thread_Name);
-        //ConTrol_Thread.setDaemon(true);
         TimeT.start();
-        //ConTrol_Thread.start();
     }
     /**
      * 设置线程控制符
@@ -63,22 +58,6 @@ public class MainActivity extends Activity {
         else{
             TimeT.setStop();
         }
-        /*
-        if(Flag){
-            // 重启线程
-            TimeFlag = true;
-            if(TimeT.isRun!=true)
-            {
-                TimeT.start();
-                ConTrol_Thread.start();
-            }
-            else if(TimeT.getState()==Thread.State.NEW){
-                System.out.println("-->要启动线程");
-                TimeT.setRun();
-                ConTrol_Thread.run();
-            }
-            System.out.println("-->当前线程:"+Thread.currentThread().getName()+" 状态:"+Thread.currentThread().getState());
-        }*/
     }
     /**
      * 获取文件完整路径
@@ -99,6 +78,7 @@ public class MainActivity extends Activity {
         if (TimeFlag) {
             TimeFlag = false;
         }
+        Set_Time_Flag(TimeFlag);
     }
 
     @Override
@@ -110,6 +90,7 @@ public class MainActivity extends Activity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
         TimeFlag = true;
+        Set_Time_Flag(TimeFlag);
         super.onResume();
         // USB  状态监测
         IntentFilter usbFilter = new IntentFilter();
@@ -123,6 +104,7 @@ public class MainActivity extends Activity {
         if (TimeFlag) {
             TimeFlag = false;
         }
+        Set_Time_Flag(TimeFlag);
         super.onPause();
         unregisterReceiver(mUsbReceiver);
     }
@@ -134,6 +116,7 @@ public class MainActivity extends Activity {
         if (TimeFlag) {
             TimeFlag = false;
         }
+        Set_Time_Flag(TimeFlag);
         super.onDestroy();
     }
 
@@ -183,29 +166,6 @@ public class MainActivity extends Activity {
             this.isRun = false;
         }
     }
-
-    /**
-     * 控制线程
-     */
-    /*
-    class Control extends Thread {
-        private TimeThread t;
-
-        public Control(TimeThread t) {
-            this.t = t;
-        }
-
-        public void run() {
-            while (true) {
-                if (TimeFlag) {
-                    t.setRun();
-                } else {
-                    t.setStop();
-                }
-            }
-        }
-    }
-    */
 
     /**
      * 读取时间，将时间反馈到界面
