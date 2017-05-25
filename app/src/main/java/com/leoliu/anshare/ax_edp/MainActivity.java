@@ -14,15 +14,17 @@ import android.text.format.DateFormat;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.Time;
 import java.util.Calendar;
 
 public class MainActivity extends Activity {
 
     private final int msgKey1 = 1;                  // Handle 标识符
     private static boolean TimeFlag = true;         // 时间更新 标识符
-    final TimeThread TimeT = new TimeThread();      // 开始时间更新线程
-    final Thread ConTrol_Thread = new Control(TimeT);
+    private TimeThread TimeT = new TimeThread();      // 开始时间更新线程
+    //final Thread ConTrol_Thread = new Control(TimeT);
     static  String TextFilePath="";                 // 文件地址
+    static  String Thread_Name="Time-Thread";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +44,10 @@ public class MainActivity extends Activity {
 		 * 用一个线程不断更新时间
 		 */
         TimeFlag = true;
-        TimeT.setRun();
-        ConTrol_Thread.setDaemon(true);
+        TimeT.setName(Thread_Name);
+        //ConTrol_Thread.setDaemon(true);
         TimeT.start();
-        ConTrol_Thread.start();
+        //ConTrol_Thread.start();
     }
     /**
      * 设置线程控制符
@@ -54,7 +56,13 @@ public class MainActivity extends Activity {
         TimeFlag = Flag;
         System.out.println("-->收到的设置:"+TimeFlag+"");
         System.out.println("-->TimeT ID:"+TimeT.getId()+"\n-->TimeT 名称: "+TimeT.getName()+"\n-->线程状态:"+TimeT.getState());
-        System.out.println("-->ConTrol_Thread ID:"+ConTrol_Thread.getId()+"\n-->ConTrol_Thread 名称: "+ConTrol_Thread.getName()+"\n-->线程状态:"+ConTrol_Thread.getState());
+        //System.out.println("-->ConTrol_Thread ID:"+ConTrol_Thread.getId()+"\n-->ConTrol_Thread 名称: "+ConTrol_Thread.getName()+"\n-->线程状态:"+ConTrol_Thread.getState());
+        if(Flag && TimeT.getName().equals(Thread_Name)){
+            TimeT.setRun();
+        }
+        else{
+            TimeT.setStop();
+        }
         /*
         if(Flag){
             // 重启线程
@@ -144,14 +152,14 @@ public class MainActivity extends Activity {
      * 时间更新
      */
     class TimeThread extends Thread {
-        private boolean isRun;
+        private boolean isRun=true;
+
         @Override
         public void run() {
-            while (isRun && TimeFlag) {
-                // System.out.println("Thread: " + Thread.currentThread().getName() + " 开始运行");
+            while (isRun) {
                 try {
                     Thread.sleep(1000);// 一秒的时间间隔
-                    System.out.println("--> Time_Flag: " + TimeFlag+"\n-->TimeT: "+TimeT.getName()+"\n-->TimeT State: "+TimeT.getState());
+                    System.out.println("-->Time_Flag: " + TimeFlag+"\n-->TimeT: "+TimeT.getName()+"\n-->TimeT ID: "+TimeT.getId()+"\n-->TimeT State: "+TimeT.getState());
                     if (TimeFlag) {
                         Message msg = new Message();
                         msg.what = msgKey1;
@@ -159,8 +167,8 @@ public class MainActivity extends Activity {
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                    System.out.println("-->Thread Error :" + e.getMessage());
                 }
-                // System.out.println("Thread: " + Thread.currentThread().getName() + " 结束");
             }
         }
 
@@ -179,6 +187,7 @@ public class MainActivity extends Activity {
     /**
      * 控制线程
      */
+    /*
     class Control extends Thread {
         private TimeThread t;
 
@@ -196,8 +205,9 @@ public class MainActivity extends Activity {
             }
         }
     }
+    */
 
-    /*
+    /**
      * 读取时间，将时间反馈到界面
      */
     private Handler mHandler = new Handler() {
@@ -225,7 +235,7 @@ public class MainActivity extends Activity {
                             MainDate.setText(sysDateStr + "  " + weekname[week - 1]); // 设置日期
                         }
                     } catch (Exception ex) {
-                        System.out.println("Error :" + ex.getMessage());
+                        System.out.println("-->Handle Error :" + ex.getMessage());
                     }
                     break;
                 default:

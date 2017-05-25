@@ -20,6 +20,7 @@ import java.io.OutputStream;
 
 public class MainPreView extends Fragment {
     private int Text_Page = 1;
+    private int Text_Page_Max;
     private int Page_Text_Num = 180;
 
     public MainPreView() {
@@ -36,19 +37,19 @@ public class MainPreView extends Fragment {
         InputStream inputStream = getResources().openRawResource(R.raw.a);
         final String Main_string;
         String Txt_File_Path=MA.Get_Text_File_Path();
-        Toast.makeText(getActivity(), "文件地址:\n" + Txt_File_Path + "", Toast.LENGTH_SHORT).show();
         if(Txt_File_Path.equals("")) {
             Main_string = TxtReader.getString(inputStream);
         }
         else{
-            Toast.makeText(getActivity(), "文件地址:\n" + Txt_File_Path + "", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "文件地址:\n" + Txt_File_Path + " Get", Toast.LENGTH_SHORT).show();
             Main_string = TxtReader.getString(Txt_File_Path);
         }
         File TxtFile = new File("Leo.txt");
         inputstreamtofile(inputStream, TxtFile);
         final ProcessText PT = new ProcessText(TxtFile, 1);
         PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Page_Text_Num * Text_Page));
-        Toast.makeText(getActivity(), "长度:" + Main_string.length(), Toast.LENGTH_LONG).show();
+        Text_Page_Max = (int) (Math.ceil(((int) Main_string.length()) / Page_Text_Num) + 1);
+        Toast.makeText(getActivity(), "长度: " + Main_string.length()+" 字\n每页字数: "+Page_Text_Num+" 字\n最大页面数: "+Text_Page_Max+" 页", Toast.LENGTH_LONG).show();
 
         /**
          * 页面控制部分
@@ -79,7 +80,7 @@ public class MainPreView extends Fragment {
                     Text_Page = Text_Page + 1;
                     PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Page_Text_Num * Text_Page));
                 } else {
-                    Text_Page = (int) (Math.ceil(((int) Main_string.length()) / Page_Text_Num) + 1);
+                    Text_Page=Text_Page_Max;
                     PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Main_string.length()));
                 }
                 Toast.makeText(getActivity(), "向下翻页 Page:" + Text_Page + "", Toast.LENGTH_SHORT).show();
