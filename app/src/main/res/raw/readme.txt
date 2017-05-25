@@ -49,7 +49,5 @@
     > 尝试解决线程问题，在标识符前加入 `static` 可以停止线程，但是不能有效**重启/继续**线程 </br>
     > OTG USB 研究了**Android**的相关包 </br>
 * 2017.05.25 今日主要研究 `OTG` 读取 `USB` 优盘;另外线程部分进行简化，解决一部分问题;</br>
-    > 线程问题在`Activity`的周期运行中可以有效控制，但是`Fragment`切换后，`Activity`依旧是运行状态，因此线程`Thread`依旧无法关闭 </br>
-    > 添加简单的**txt**文字编码识别程序,以及 `Google` 推荐的字符编码识别程序 </br>
-    > 关于`OTG`相关程序,查找到了 [GitHub libaums 方法](https://github.com/magnusja/libaums#using-buffered-streams-for-more-efficency)</br>
-    > `Android` 插入**USB**设备自动检测，然后会自动启动**Android**的文件查看程序 = =||| </br>
+    > 线程问题在Activity的周期运行中可以有效控制，但是`Fragment`切换后，Activity依旧是运行状态，因此线程`Thread`依旧无法关闭</br>
+    > 添加简单的txt文字编码识别程序,以及 `Google` 推荐的字符编码识别程序</br>

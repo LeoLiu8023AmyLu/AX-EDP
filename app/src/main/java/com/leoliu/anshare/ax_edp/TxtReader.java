@@ -47,8 +47,8 @@ public class TxtReader {
      */
     public static String getString(String filepath) {
         File file = new File(filepath);    // 使用文件路径 创建 File 类型文件
-        //String Txt_Charset=getCharset(file);  // 简单判断程序
-        String Txt_Charset=getFileIncode(file); // Google推荐程序
+        String Txt_Charset=getCharset(file);  // 简单判断程序
+        //String Txt_Charset=getFileIncode(file); // Google推荐程序
         FileInputStream fileInputStream = null;
         try {
             fileInputStream = new FileInputStream(file);
@@ -61,7 +61,7 @@ public class TxtReader {
     /**
      * 判断字符类型
      */
-    /*
+
     public static String getCharset(File file) {
         String charset = "GBK";
         byte[] first3Bytes = new byte[3];
@@ -126,7 +126,7 @@ public class TxtReader {
         }
         return charset;
     }
-    */
+
     /**
      * Google 最新字符判断程序
      */

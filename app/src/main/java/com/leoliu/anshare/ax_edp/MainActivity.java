@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
+import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,15 +14,18 @@ import android.os.Message;
 import android.text.format.DateFormat;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.Calendar;
 
 public class MainActivity extends Activity {
 
     private final int msgKey1 = 1;                  // Handle 标识符
     private static boolean TimeFlag = true;         // 时间更新 标识符
-    private TimeThread TimeT = new TimeThread();      // 开始时间更新线程
-    static  String TextFilePath="";                 // 文件地址
-    static  String Thread_Name="Time-Thread";       // 线程名字
+    private static boolean OTG_Flag = false;        // OTG 设备 标识符
+    private TimeThread TimeT = new TimeThread();    // 开始时间更新线程
+    static String TextFilePath = "";                // 文件地址
+    static String Thread_Name = "Time-Thread";      // 线程名字
+    private static final String ACTION_USB_PERMISSION = "com.Android.example.USB_PERMISSION";    //
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +34,14 @@ public class MainActivity extends Activity {
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction().add(R.id.container, new MainWindow()).commit();
         }
-        Thread_Start();
+        Start_OTG_IntentFilter();   // 监听 OTG USB 的插入事件
+        Thread_Start();             // 开始 时间自动更新 线程
     }
+
     /**
      * 线程初始化
      */
-    private void Thread_Start(){
+    private void Thread_Start() {
         /*
          * 初始化 电子席卡的数值
 		 * 用一个线程不断更新时间
@@ -44,30 +50,54 @@ public class MainActivity extends Activity {
         TimeT.setName(Thread_Name);
         TimeT.start();
     }
+
     /**
-     * 设置线程控制符
+     * 设置OTG监听事件
+     */
+    private void Start_OTG_IntentFilter() {
+        //监听otg插入 拔出
+        IntentFilter usbDeviceStateFilter = new IntentFilter();
+        usbDeviceStateFilter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
+        usbDeviceStateFilter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
+        //注册监听自定义广播
+        IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
+        registerReceiver(mUsbReceiver, filter);
+        //otg插入 播出广播
+        registerReceiver(mUsbReceiver, usbDeviceStateFilter);//这里我用的碎片
+    }
+
+    /**
+     * 设置及获取 时间状态标识符
      */
     public void Set_Time_Flag(boolean Flag) {
         TimeFlag = Flag;
-        System.out.println("-->收到的设置:"+TimeFlag+"");
-        System.out.println("-->TimeT ID:"+TimeT.getId()+"\n-->TimeT 名称: "+TimeT.getName()+"\n-->线程状态:"+TimeT.getState());
-        //System.out.println("-->ConTrol_Thread ID:"+ConTrol_Thread.getId()+"\n-->ConTrol_Thread 名称: "+ConTrol_Thread.getName()+"\n-->线程状态:"+ConTrol_Thread.getState());
-        if(Flag && TimeT.getName().equals(Thread_Name)){
+        System.out.println("-->收到的设置:" + TimeFlag + "");
+        System.out.println("-->TimeT ID:" + TimeT.getId() + "\n-->TimeT 名称: " + TimeT.getName() + "\n-->线程状态:" + TimeT.getState());
+        if (Flag && TimeT.getName().equals(Thread_Name)) {
             TimeT.setRun();
-        }
-        else{
+        } else {
             TimeT.setStop();
         }
+    }
+    public boolean Get_Time_Flag() {
+        return TimeFlag;
+    }
+    /**
+     * 获取 OTG 状态符
+     */
+    public boolean Get_OTG_Flag() {
+        return OTG_Flag;
     }
     /**
      * 获取文件完整路径
      */
-    public void Set_Text_File_Path(String FilePath){
-        TextFilePath=FilePath;
-        System.out.println("-->收到的文件地址:"+FilePath+"");
+    public void Set_Text_File_Path(String FilePath) {
+        TextFilePath = FilePath;
+        System.out.println("-->收到的文件地址:" + FilePath + "");
     }
-    public  String Get_Text_File_Path(){
-        System.out.println("-->回传的文件地址:"+TextFilePath+"");
+
+    public String Get_Text_File_Path() {
+        System.out.println("-->回传的文件地址:" + TextFilePath + "");
         return TextFilePath;
     }
 
@@ -119,15 +149,43 @@ public class MainActivity extends Activity {
         Set_Time_Flag(TimeFlag);
         super.onDestroy();
     }
-
+    /**
+     * OTG USB 事件接收程序
+     */
+    //mUsbReceiver只是一个普通的广播，根据action，去分别处理对应的事件。
     private final BroadcastReceiver mUsbReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
-                Toast.makeText(context, "BroadcastReceiver in \n" + "ACTION_USB_DEVICE_ATTACHED", Toast.LENGTH_SHORT).show();
-            } else if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
-                Toast.makeText(context, "BroadcastReceiver in \n" + "ACTION_USB_DEVICE_DETACHED", Toast.LENGTH_SHORT).show();
+            switch (action) {
+                case ACTION_USB_PERMISSION://接受到自定义广播
+                    synchronized (this) {
+                        UsbDevice usbDevice = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                        if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {  //允许权限申请
+                            if (usbDevice != null) {
+                                //Do something
+                                Toast.makeText(context, "检测到USB设备" + usbDevice.toString() + "", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(context, "用户未授权，读取失败", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    break;
+                case UsbManager.ACTION_USB_DEVICE_ATTACHED://接收到存储设备插入广播
+                    UsbDevice device_add = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                    if (device_add != null) {
+                        OTG_Flag=true;
+                        Toast.makeText(context, "接收到存储设备插入广播\nUSB 设备已插入", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                case UsbManager.ACTION_USB_DEVICE_DETACHED://接收到存储设备拔出广播
+                    UsbDevice device_remove = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                    if (device_remove != null) {
+                        OTG_Flag=false;
+                        Toast.makeText(context, "接收到存储设备拔出广播\nUSB 设备已拔出", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
             }
+            Set_Time_Flag(true);
         }
     };
 
@@ -135,14 +193,14 @@ public class MainActivity extends Activity {
      * 时间更新
      */
     class TimeThread extends Thread {
-        private boolean isRun=true;
+        private boolean isRun = true;
 
         @Override
         public void run() {
             while (isRun) {
                 try {
                     Thread.sleep(1000);// 一秒的时间间隔
-                    System.out.println("-->Time_Flag: " + TimeFlag+"\n-->TimeT: "+TimeT.getName()+"\n-->TimeT ID: "+TimeT.getId()+"\n-->TimeT State: "+TimeT.getState());
+                    System.out.println("-->Time_Flag: " + TimeFlag + "\n-->TimeT: " + TimeT.getName() + "\n-->TimeT ID: " + TimeT.getId() + "\n-->TimeT State: " + TimeT.getState());
                     if (TimeFlag) {
                         Message msg = new Message();
                         msg.what = msgKey1;

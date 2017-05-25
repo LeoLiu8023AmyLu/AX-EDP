@@ -41,7 +41,10 @@ public class MainWindow extends Fragment {
             public void onClick(View v) {
                 //do something
                 MainActivity MA = (MainActivity) new MainActivity();
-                MA.Set_Time_Flag(false);
+                boolean Flag=MA.Get_Time_Flag();
+                if(Flag){Flag=false;}
+                else{Flag=true;}
+                MA.Set_Time_Flag(Flag);
                 Toast.makeText(getActivity(), "暂不支持此项功能，请等待开发完成", Toast.LENGTH_SHORT).show();
             }
         });

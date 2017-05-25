@@ -34,7 +34,7 @@ public class MainPreView extends Fragment {
         MA.Set_Time_Flag(false);
         //初始化 控件
         final TextView PreView_Text = (TextView) rootView.findViewById(R.id.MainPreView_Text);
-        InputStream inputStream = getResources().openRawResource(R.raw.a);
+        InputStream inputStream = getResources().openRawResource(R.raw.readme);
         final String Main_string;
         String Txt_File_Path=MA.Get_Text_File_Path();
         if(Txt_File_Path.equals("")) {
