@@ -5,6 +5,7 @@ package com.leoliu.anshare.ax_edp;
  */
 
 import android.app.ListFragment;
+import android.content.Intent;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.os.Environment;
@@ -57,6 +58,11 @@ public class FileManager extends ListFragment {
                 if(OTG_Flag){
                     Toast.makeText(getActivity(), "已检测到设备", Toast.LENGTH_SHORT).show();
                     // 接下来需要使用另一个 Fragment 来完成 USB 的读取工作
+                    Intent intent = new Intent();
+                    intent.putExtra("one", "Leo");
+                    intent.putExtra("two", "Amy");
+                    intent.setClass(MA, USBMainActivity.class);
+                    startActivity(intent);
                 }
                 else{
                     USB_Path="";

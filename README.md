@@ -53,3 +53,4 @@
     > 添加简单的**txt**文字编码识别程序,以及 `Google` 推荐的字符编码识别程序 </br>
     > 关于`OTG`相关程序,查找到了 [GitHub libaums 方法](https://github.com/magnusja/libaums#using-buffered-streams-for-more-efficency)</br>
     > `Android` 插入**USB**设备自动检测，然后会自动启动**Android**的文件查看程序 = =||| </br>
+    > 加入了 `OTG USB` 相关的代码，但是 Activity 之间的调用问题没能解决</br>

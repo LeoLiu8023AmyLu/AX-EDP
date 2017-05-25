@@ -72,6 +72,9 @@ public class USBMainActivity extends AppCompatActivity implements AdapterView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.usb_activity_main);
+        Intent intent = getIntent();
+        String num1 = intent.getStringExtra("one");
+        String num2 = intent.getStringExtra("two");
         bindView();
         registerReceiver();
         redDeviceList();//一开始就需要尝试读取一次

@@ -22,6 +22,7 @@ public class MainPreView extends Fragment {
     private int Text_Page = 1;
     private int Text_Page_Max;
     private int Page_Text_Num = 160;
+    private float TextSize=25;
 
     public MainPreView() {
     }
@@ -34,6 +35,7 @@ public class MainPreView extends Fragment {
         MA.Set_Time_Flag(false);
         //初始化 控件
         final TextView PreView_Text = (TextView) rootView.findViewById(R.id.MainPreView_Text);
+        // 开始文件读取
         InputStream inputStream = getResources().openRawResource(R.raw.readme);
         final String Main_string;
         String Txt_File_Path=MA.Get_Text_File_Path();
@@ -44,9 +46,10 @@ public class MainPreView extends Fragment {
             Toast.makeText(getActivity(), "文件地址:\n" + Txt_File_Path + " Get", Toast.LENGTH_SHORT).show();
             Main_string = TxtReader.getString(Txt_File_Path);
         }
-        File TxtFile = new File("Leo.txt");
-        inputstreamtofile(inputStream, TxtFile);
-        final ProcessText PT = new ProcessText(TxtFile, 1);
+        //File TxtFile = new File("Leo.txt");
+        //inputstreamtofile(inputStream, TxtFile);
+        //final ProcessText PT = new ProcessText(TxtFile, 1);
+        PreView_Text.setTextSize(TextSize);
         PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Page_Text_Num * Text_Page));
         Text_Page_Max = (int) (Math.ceil(((int) Main_string.length()) / Page_Text_Num) + 1);
         Toast.makeText(getActivity(), "长度: " + Main_string.length()+" 字\n每页字数: "+Page_Text_Num+" 字\n最大页面数: "+Text_Page_Max+" 页", Toast.LENGTH_LONG).show();
