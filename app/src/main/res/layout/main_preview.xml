@@ -40,13 +40,20 @@
                 <TextView
                     android:id="@+id/MainPreView_Text"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:text="正文显示"
+                    android:layout_weight="0.95"
                     android:textSize="30sp"
                     android:ems="10" />
+
+                <SeekBar
+                    android:id="@+id/MainPreView_SeekBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.05" />
 
             </LinearLayout>
 

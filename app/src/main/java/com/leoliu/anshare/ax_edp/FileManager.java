@@ -5,6 +5,7 @@ package com.leoliu.anshare.ax_edp;
  */
 
 import android.app.ListFragment;
+import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -25,6 +26,7 @@ import java.util.Stack;
 public class FileManager extends ListFragment {
 
     public static final String COLUMN_NAME_NAME = "name";   // 列名称
+    private static boolean OTG_Flag=false;                  // USB 设备可用标识符
     private SimpleAdapter adapter = null;                   // 适配器
     private List<Map<String, Object>> itemList;             // 列表文件
     private Stack<String> pathHistory = null;               // 历史路径
@@ -32,6 +34,7 @@ public class FileManager extends ListFragment {
     String[] from = {COLUMN_NAME_NAME};                     // 从列中读取
     int[] to = {R.id.FileTextView};                         // 列表显示文件
     private String TextFilePath;                            // 文件地址
+    private String USB_Path="";                             // USB 设备地址
 
     public FileManager() {
     }
@@ -49,7 +52,17 @@ public class FileManager extends ListFragment {
             @Override
             public void onClick(View v) {
                 // 显示 U 盘路径
-                Toast.makeText(getActivity(), "显示优盘目录" + "", Toast.LENGTH_SHORT).show();
+                MainActivity MA=new MainActivity();
+                OTG_Flag=MA.Get_OTG_Flag();
+                if(OTG_Flag){
+                    Toast.makeText(getActivity(), "已检测到设备", Toast.LENGTH_SHORT).show();
+                    // 接下来需要使用另一个 Fragment 来完成 USB 的读取工作
+                }
+                else{
+                    USB_Path="";
+                    Toast.makeText(getActivity(), "未检测到设备", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         Button File_Button_next = (Button) rootView.findViewById(R.id.File_Button_next);
@@ -86,6 +99,11 @@ public class FileManager extends ListFragment {
         }
     }
 
+    /**
+     * 列表更新
+     * @param path
+     * @return list
+     */
     private List<Map<String, Object>> getData(String path) {
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 
@@ -110,6 +128,13 @@ public class FileManager extends ListFragment {
         return list;
     }
 
+    /**
+     * 列表点击事件处理
+     * @param l
+     * @param v
+     * @param position
+     * @param id
+     */
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
@@ -142,6 +167,10 @@ public class FileManager extends ListFragment {
         }
     }
 
+    /**
+     * 更新列表
+     * @param path
+     */
     private void updateList(String path) {
         itemList.clear();
         itemList = getData(path);

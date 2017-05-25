@@ -14,8 +14,15 @@ import android.os.Message;
 import android.text.format.DateFormat;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.Calendar;
+
+import com.github.mjdev.libaums.UsbMassStorageDevice;
+import com.github.mjdev.libaums.fs.FileSystem;
+import com.github.mjdev.libaums.fs.UsbFile;
+import com.github.mjdev.libaums.fs.UsbFileInputStream;
+import com.github.mjdev.libaums.fs.UsbFileOutputStream;
+import com.github.mjdev.libaums.partition.Partition;
+
 
 public class MainActivity extends Activity {
 
@@ -25,7 +32,7 @@ public class MainActivity extends Activity {
     private TimeThread TimeT = new TimeThread();    // 开始时间更新线程
     static String TextFilePath = "";                // 文件地址
     static String Thread_Name = "Time-Thread";      // 线程名字
-    private static final String ACTION_USB_PERMISSION = "com.Android.example.USB_PERMISSION";    //
+    private static final String ACTION_USB_PERMISSION = "com.Android.example.USB_PERMISSION"; // 权限字段
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

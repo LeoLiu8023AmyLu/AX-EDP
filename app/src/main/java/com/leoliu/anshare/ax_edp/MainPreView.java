@@ -21,7 +21,7 @@ import java.io.OutputStream;
 public class MainPreView extends Fragment {
     private int Text_Page = 1;
     private int Text_Page_Max;
-    private int Page_Text_Num = 180;
+    private int Page_Text_Num = 160;
 
     public MainPreView() {
     }
