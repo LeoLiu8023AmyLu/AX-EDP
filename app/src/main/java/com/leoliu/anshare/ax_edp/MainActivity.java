@@ -95,6 +95,14 @@ public class MainActivity extends Activity {
     public boolean Get_OTG_Flag() {
         return OTG_Flag;
     }
+    public void Start_OTG_Activity(){
+        Set_Time_Flag(false);
+        Intent intent = new Intent();
+        intent.putExtra("one", "Leo");
+        intent.putExtra("two", "Amy");
+        Intent intent = intent.setClass(MainActivity.this, USBMainActivity.class);
+        MainActivity.this.startActivity(intent);
+    }
     /**
      * 获取文件完整路径
      */

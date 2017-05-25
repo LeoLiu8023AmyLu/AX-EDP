@@ -58,16 +58,12 @@ public class FileManager extends ListFragment {
                 if(OTG_Flag){
                     Toast.makeText(getActivity(), "已检测到设备", Toast.LENGTH_SHORT).show();
                     // 接下来需要使用另一个 Fragment 来完成 USB 的读取工作
-                    Intent intent = new Intent();
-                    intent.putExtra("one", "Leo");
-                    intent.putExtra("two", "Amy");
-                    intent.setClass(MA, USBMainActivity.class);
-                    startActivity(intent);
                 }
                 else{
                     USB_Path="";
                     Toast.makeText(getActivity(), "未检测到设备", Toast.LENGTH_SHORT).show();
                 }
+                MA.Start_OTG_Activity();
 
             }
         });

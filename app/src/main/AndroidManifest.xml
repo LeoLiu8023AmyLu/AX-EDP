@@ -20,7 +20,7 @@
         </activity>
         <activity android:name=".USBMainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="USBMAIN" />
             </intent-filter>
         </activity>
     </application>
