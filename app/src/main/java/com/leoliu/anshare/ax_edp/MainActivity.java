@@ -100,7 +100,7 @@ public class MainActivity extends Activity {
         Intent intent = new Intent();
         intent.putExtra("one", "Leo");
         intent.putExtra("two", "Amy");
-        Intent intent = intent.setClass(MainActivity.this, USBMainActivity.class);
+        intent.setClass(MainActivity.this, USBMainActivity.class);
         MainActivity.this.startActivity(intent);
     }
     /**

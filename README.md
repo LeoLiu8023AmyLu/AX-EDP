@@ -54,3 +54,14 @@
     > 关于`OTG`相关程序,查找到了 [GitHub libaums 方法](https://github.com/magnusja/libaums#using-buffered-streams-for-more-efficency)</br>
     > `Android` 插入**USB**设备自动检测，然后会自动启动**Android**的文件查看程序 = =||| </br>
     > 加入了 `OTG USB` 相关的代码，但是 Activity 之间的调用问题没能解决,**Intent**传递出现问题</br>
+* 2017.05.26 今晚要回北京了~ 主要研究Activity Intent 之间传递问题 </br>
+    > 如果需要调用 OTG 相关操作函数，需要引入库文件:</br>
+    ``` java
+    import com.github.mjdev.libaums.UsbMassStorageDevice;
+    import com.github.mjdev.libaums.fs.FileSystem;
+    import com.github.mjdev.libaums.fs.UsbFile;
+    import com.github.mjdev.libaums.fs.UsbFileInputStream;
+    import com.github.mjdev.libaums.fs.UsbFileOutputStream;
+    import com.github.mjdev.libaums.partition.Partition;
+    ```
+    > Intent </br>
