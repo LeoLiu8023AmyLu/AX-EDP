@@ -46,6 +46,7 @@ public class MainWindow extends Fragment {
                 else{Flag=true;}
                 MA.Set_Time_Flag(Flag);
                 Toast.makeText(getActivity(), "暂不支持此项功能，请等待开发完成", Toast.LENGTH_SHORT).show();
+                MA.Start_OTG_Activity();
             }
         });
         //初始化 控件

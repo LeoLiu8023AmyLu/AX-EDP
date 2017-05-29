@@ -19,9 +19,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".USBMainActivity">
-            <intent-filter>
-                <action android:name="USBMAIN" />
-            </intent-filter>
         </activity>
     </application>
 

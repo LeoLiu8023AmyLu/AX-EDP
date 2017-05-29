@@ -66,3 +66,6 @@
     ```
     > Intent </br>
     > 研究 OTG USB 处理过程</br>
+* 2017.05.29 今天要着重研究一下 `Activity` 与 `Intent` ;<br>
+    > Intent 报错:**"Intent Error :Attempt to invoke virtual method 'android.app.ActivityThread$ApplicationThread android.app.ActivityThread.getApplicationThread()' on a null object reference"**<br>
+    > 应该与线程相关<br>

@@ -96,12 +96,19 @@ public class MainActivity extends Activity {
         return OTG_Flag;
     }
     public void Start_OTG_Activity(){
-        Set_Time_Flag(false);
-        Intent intent = new Intent();
-        intent.putExtra("one", "Leo");
-        intent.putExtra("two", "Amy");
-        intent.setClass(MainActivity.this, USBMainActivity.class);
-        MainActivity.this.startActivity(intent);
+        try {
+            Set_Time_Flag(false);
+            Intent intent = new Intent();
+            intent.putExtra("one", "Leo");
+            intent.putExtra("two", "Amy");
+            intent.setClass(com.leoliu.anshare.ax_edp.MainActivity.this, USBMainActivity.class);
+            //getFragmentManager().beginTransaction().remove(new FileManager()).commit();
+            startActivity(intent);
+        }
+        catch (Exception E){
+            E.printStackTrace();
+            System.out.println("-->Intent Error :" + E.getMessage());
+        }
     }
     /**
      * 获取文件完整路径
