@@ -69,3 +69,6 @@
 * 2017.05.29 今天要着重研究一下 `Activity` 与 `Intent` ;<br>
     > Intent 报错:**"Intent Error :Attempt to invoke virtual method 'android.app.ActivityThread$ApplicationThread android.app.ActivityThread.getApplicationThread()' on a null object reference"**<br>
     > 应该与线程相关<br>
+* 2017.06.01 儿童节快乐~ 依旧研究 `Activity` 与 `Intent` ; 调试程序总是错在`startActivity(intent);`<br>
+    > 解决方法1: 以`Fragment` 重新编写程序 仿照`USBTest`编写;<br>
+    > 解决方法2: 研究线程以及`Intent`,争取调用USB程序<br>

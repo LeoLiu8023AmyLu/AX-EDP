@@ -1,6 +1,8 @@
 package com.leoliu.anshare.ax_edp;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -47,7 +49,7 @@ import java.util.concurrent.Executors;
 /**
  * @author Mr.Zhou
  */
-public class USBMainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
+public class USBMainActivity extends Activity implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
 

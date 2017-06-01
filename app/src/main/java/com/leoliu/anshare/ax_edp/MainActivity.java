@@ -101,8 +101,9 @@ public class MainActivity extends Activity {
             Intent intent = new Intent();
             intent.putExtra("one", "Leo");
             intent.putExtra("two", "Amy");
-            intent.setClass(com.leoliu.anshare.ax_edp.MainActivity.this, USBMainActivity.class);
+            intent.setClass(MainActivity.this, USBMainActivity.class);
             //getFragmentManager().beginTransaction().remove(new FileManager()).commit();
+            System.out.println("-->Intent " + intent.toString());
             startActivity(intent);
         }
         catch (Exception E){
@@ -158,7 +159,7 @@ public class MainActivity extends Activity {
         }
         Set_Time_Flag(TimeFlag);
         super.onPause();
-        unregisterReceiver(mUsbReceiver);
+        //unregisterReceiver(mUsbReceiver);
     }
 
     /**
