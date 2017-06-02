@@ -1,8 +1,6 @@
 package com.leoliu.anshare.ax_edp;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -10,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
@@ -22,9 +21,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mjdev.libaums.UsbMassStorageDevice;
 import com.github.mjdev.libaums.fs.FileSystem;
@@ -49,7 +50,7 @@ import java.util.concurrent.Executors;
 /**
  * @author Mr.Zhou
  */
-public class USBMainActivity extends Activity implements AdapterView.OnItemClickListener, View.OnClickListener {
+public class USBMainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
 
@@ -61,13 +62,9 @@ public class USBMainActivity extends Activity implements AdapterView.OnItemClick
     private GridView gv_list;
     private List<UsbFile> usbFiles = new ArrayList<>();
     private UsbFileAdapter adapter;
-
     private UsbMassStorageDevice[] storageDevices;
-
     private UsbFile cFolder;//当前目录
-
     private ExecutorService executorService;
-
     private ProgressDialog dialog_wait;
 
     @Override
@@ -75,8 +72,6 @@ public class USBMainActivity extends Activity implements AdapterView.OnItemClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.usb_activity_main);
         Intent intent = getIntent();
-        String num1 = intent.getStringExtra("one");
-        String num2 = intent.getStringExtra("two");
         bindView();
         registerReceiver();
         redDeviceList();//一开始就需要尝试读取一次
@@ -90,8 +85,36 @@ public class USBMainActivity extends Activity implements AdapterView.OnItemClick
         dialog_wait.setCanceledOnTouchOutside(false);
         //线程
         executorService = Executors.newCachedThreadPool();//30大小的线程池
+        /**
+         * 页面控制部分
+         * @ 功能：后退，翻页
+         */
+        //页面控制
+        Button File_Button_U = (Button) findViewById(R.id.USB_Button_U);
+        File_Button_U.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        Button File_Button_next = (Button) findViewById(R.id.USB_Button_next);
+        File_Button_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(USBMainActivity.this, MainActivity.class);
+                startActivity(intent);
+                //finish();
+            }
+        });
+        // 返回上一页面
+        Button File_Button_back = (Button) findViewById(R.id.USB_Button_back);
+        File_Button_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
-
 
     @Override
     protected void onDestroy() {
@@ -101,6 +124,18 @@ public class USBMainActivity extends Activity implements AdapterView.OnItemClick
             mUsbReceiver = null;
         }
     }
+
+    @Override
+    protected void onResume() {
+        /**
+         * 设置为横屏
+         */
+        if(getRequestedOrientation()!=ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
+        super.onResume();
+    }
+
 
     private void registerReceiver() {
         //监听otg插入 拔出

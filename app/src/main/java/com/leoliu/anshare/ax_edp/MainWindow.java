@@ -5,6 +5,7 @@ package com.leoliu.anshare.ax_edp;
  */
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -23,7 +24,7 @@ public class MainWindow extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.mainwindow, container, false);
+        final View rootView = inflater.inflate(R.layout.mainwindow, container, false);
         //
         Button MainEnterBT = (Button) rootView.findViewById(R.id.button_MainEnter);
         MainEnterBT.setOnClickListener(new View.OnClickListener() {
@@ -46,7 +47,8 @@ public class MainWindow extends Fragment {
                 else{Flag=true;}
                 MA.Set_Time_Flag(Flag);
                 Toast.makeText(getActivity(), "暂不支持此项功能，请等待开发完成", Toast.LENGTH_SHORT).show();
-                MA.Start_OTG_Activity();
+                //MA.Start_OTG_Activity();
+                goToIntent(rootView);
             }
         });
         //初始化 控件
@@ -64,5 +66,10 @@ public class MainWindow extends Fragment {
         MainTime.setText(sysTimeStr);
         MainDate.setText(sysDateStr + "  " + weekname[week - 1]);
         return rootView;
+    }
+
+    public void goToIntent(View view) {
+        Intent intent = new Intent(getActivity(), USBMainActivity.class);
+        startActivity(intent);
     }
 }

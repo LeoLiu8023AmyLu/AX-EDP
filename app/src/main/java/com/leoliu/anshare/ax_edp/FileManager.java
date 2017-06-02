@@ -35,14 +35,13 @@ public class FileManager extends ListFragment {
     String[] from = {COLUMN_NAME_NAME};                     // 从列中读取
     int[] to = {R.id.FileTextView};                         // 列表显示文件
     private String TextFilePath;                            // 文件地址
-    private String USB_Path="";                             // USB 设备地址
 
     public FileManager() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.file_manager, container, false);
+        final View rootView = inflater.inflate(R.layout.file_manager, container, false);
         /**
          * 页面控制部分
          * @ 功能：后退，翻页
@@ -58,13 +57,11 @@ public class FileManager extends ListFragment {
                 if(OTG_Flag){
                     Toast.makeText(getActivity(), "已检测到设备", Toast.LENGTH_SHORT).show();
                     // 接下来需要使用另一个 Fragment 来完成 USB 的读取工作
+                    goToIntent(rootView);
                 }
                 else{
-                    USB_Path="";
                     Toast.makeText(getActivity(), "未检测到设备", Toast.LENGTH_SHORT).show();
                 }
-                MA.Start_OTG_Activity();
-
             }
         });
         Button File_Button_next = (Button) rootView.findViewById(R.id.File_Button_next);
@@ -94,7 +91,7 @@ public class FileManager extends ListFragment {
         String sDStateString = Environment.getExternalStorageState();
         if (sDStateString.equals(Environment.MEDIA_MOUNTED)) {
             File SDFile = Environment.getExternalStorageDirectory();
-            curPath = SDFile.getAbsolutePath() + "/";
+            curPath = SDFile.getAbsolutePath() + "/documents/";
             itemList = getData(curPath);
             adapter = new SimpleAdapter(getActivity(), itemList, R.layout.list_item, from, to);
             setListAdapter(adapter);
@@ -180,5 +177,10 @@ public class FileManager extends ListFragment {
         setListAdapter(adapter);
         adapter.notifyDataSetChanged();
         Toast.makeText(getActivity(), "当前地址:\n" + path, Toast.LENGTH_SHORT).show();
+    }
+
+    public void goToIntent(View view) {
+        Intent intent = new Intent(getActivity(), USBMainActivity.class);
+        startActivity(intent);
     }
 }

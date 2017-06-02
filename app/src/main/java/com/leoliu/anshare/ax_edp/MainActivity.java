@@ -95,22 +95,6 @@ public class MainActivity extends Activity {
     public boolean Get_OTG_Flag() {
         return OTG_Flag;
     }
-    public void Start_OTG_Activity(){
-        try {
-            Set_Time_Flag(false);
-            Intent intent = new Intent();
-            intent.putExtra("one", "Leo");
-            intent.putExtra("two", "Amy");
-            intent.setClass(MainActivity.this, USBMainActivity.class);
-            //getFragmentManager().beginTransaction().remove(new FileManager()).commit();
-            System.out.println("-->Intent " + intent.toString());
-            startActivity(intent);
-        }
-        catch (Exception E){
-            E.printStackTrace();
-            System.out.println("-->Intent Error :" + E.getMessage());
-        }
-    }
     /**
      * 获取文件完整路径
      */
