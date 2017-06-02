@@ -1,11 +1,13 @@
 package com.leoliu.anshare.ax_edp;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +61,9 @@ public class MainPreView extends Fragment {
          * @ 功能：后退，翻页
          */
         //页面控制
+        final SeekBar F_text_SeekBar=(SeekBar) rootView.findViewById(R.id.MainPreView_SeekBar);
+        F_text_SeekBar.setMax(Text_Page_Max);
+        F_text_SeekBar.setProgress(1);
         Button F_text_Up = (Button) rootView.findViewById(R.id.F_text_Up);
         F_text_Up.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +76,7 @@ public class MainPreView extends Fragment {
                     Text_Page = 1;
                     PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Page_Text_Num * Text_Page));
                 }
+                //F_text_SeekBar.setProgress(Text_Page);
                 Toast.makeText(getActivity(), "向上翻页 Page:" + Text_Page + "", Toast.LENGTH_SHORT).show();
             }
         });
@@ -86,6 +92,7 @@ public class MainPreView extends Fragment {
                     Text_Page=Text_Page_Max;
                     PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Main_string.length()));
                 }
+                //F_text_SeekBar.setProgress(Text_Page);
                 Toast.makeText(getActivity(), "向下翻页 Page:" + Text_Page + "", Toast.LENGTH_SHORT).show();
             }
         });
@@ -96,6 +103,37 @@ public class MainPreView extends Fragment {
             public void onClick(View v) {
                 //do something
                 getFragmentManager().beginTransaction().replace(R.id.container, new FileManager()).commit();
+            }
+        });
+        F_text_SeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                Text_Page=F_text_SeekBar.getProgress();
+                if(Text_Page>0) {
+                    try{
+                        if (Page_Text_Num * (Text_Page) < Main_string.length()) {
+                            Text_Page = Text_Page + 1;
+                            PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Page_Text_Num * Text_Page));
+                        } else {
+                            Text_Page=Text_Page_Max;
+                            PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Main_string.length()));
+                        }
+
+                    } catch (Exception E){
+                        System.out.println("--> SeekBar"+E.toString());
+                    }
+                }
+                else{
+                    Text_Page = 1;
+                    PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Page_Text_Num * Text_Page));
+                }
+                System.out.println("--> SeekBar 进度"+Text_Page+"");
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                Toast.makeText(getActivity(), "滚动条定位 Page:" + Text_Page + "", Toast.LENGTH_SHORT).show();
             }
         });
         return rootView;

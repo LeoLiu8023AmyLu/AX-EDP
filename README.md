@@ -72,3 +72,6 @@
 * 2017.06.01 儿童节快乐~ 依旧研究 `Activity` 与 `Intent` ; 调试程序总是错在`startActivity(intent);`<br>
     > 解决方法1: 以`Fragment` 重新编写程序 仿照`USBTest`编写;<br>
     > 解决方法2: 研究线程以及`Intent`,争取调用USB程序<br>
+* 2017.06.02 今日研究通Inetnt调用的问题了，原因是`Fragment`与`Activity` 调用 `Intent` 的方法不同<br>
+    > 目前采用的方法是由主程序获取本机`SD`目录中的`documents`中的文件信息，由`USBManActivity`获取USB设备中的文件信息<br>
+    > 文件浏览界面需要优化<br>
