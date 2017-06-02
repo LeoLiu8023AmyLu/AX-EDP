@@ -74,4 +74,7 @@
     > 解决方法2: 研究线程以及`Intent`,争取调用USB程序<br>
 * 2017.06.02 今日研究通Inetnt调用的问题了，原因是`Fragment`与`Activity` 调用 `Intent` 的方法不同<br>
     > 目前采用的方法是由主程序获取本机`SD`目录中的`documents`中的文件信息，由`USBManActivity`获取USB设备中的文件信息<br>
-    > 文件浏览界面需要优化<br>
+    > 文件浏览界面需要优化 `SeekBar` 部分需要优化<br>
+    > 尝试直接从 OTG 中打开 txt 文件<br>
+    
+    > <div align=center><img  width="480" height="270" src="https://raw.githubusercontent.com/LeoLiu8023AmyLu/AX-EDP/master/ScreenCapture/device-2017-06-02-165211.png"/></div> </br>
