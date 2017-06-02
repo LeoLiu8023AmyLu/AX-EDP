@@ -14,14 +14,8 @@ import android.os.Message;
 import android.text.format.DateFormat;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.util.Calendar;
 
-import com.github.mjdev.libaums.UsbMassStorageDevice;
-import com.github.mjdev.libaums.fs.FileSystem;
-import com.github.mjdev.libaums.fs.UsbFile;
-import com.github.mjdev.libaums.fs.UsbFileInputStream;
-import com.github.mjdev.libaums.fs.UsbFileOutputStream;
-import com.github.mjdev.libaums.partition.Partition;
+import java.util.Calendar;
 
 
 public class MainActivity extends Activity {
@@ -86,15 +80,18 @@ public class MainActivity extends Activity {
             TimeT.setStop();
         }
     }
+
     public boolean Get_Time_Flag() {
         return TimeFlag;
     }
+
     /**
      * 获取 OTG 状态符
      */
     public boolean Get_OTG_Flag() {
         return OTG_Flag;
     }
+
     /**
      * 获取文件完整路径
      */
@@ -156,6 +153,7 @@ public class MainActivity extends Activity {
         Set_Time_Flag(TimeFlag);
         super.onDestroy();
     }
+
     /**
      * OTG USB 事件接收程序
      */
@@ -180,14 +178,14 @@ public class MainActivity extends Activity {
                 case UsbManager.ACTION_USB_DEVICE_ATTACHED://接收到存储设备插入广播
                     UsbDevice device_add = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
                     if (device_add != null) {
-                        OTG_Flag=true;
+                        OTG_Flag = true;
                         Toast.makeText(context, "接收到存储设备插入广播\nUSB 设备已插入", Toast.LENGTH_SHORT).show();
                     }
                     break;
                 case UsbManager.ACTION_USB_DEVICE_DETACHED://接收到存储设备拔出广播
                     UsbDevice device_remove = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
                     if (device_remove != null) {
-                        OTG_Flag=false;
+                        OTG_Flag = false;
                         Toast.makeText(context, "接收到存储设备拔出广播\nUSB 设备已拔出", Toast.LENGTH_SHORT).show();
                     }
                     break;

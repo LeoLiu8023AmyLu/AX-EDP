@@ -25,7 +25,6 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mjdev.libaums.UsbMassStorageDevice;
 import com.github.mjdev.libaums.fs.FileSystem;
@@ -101,7 +100,7 @@ public class USBMainActivity extends AppCompatActivity implements AdapterView.On
         File_Button_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(USBMainActivity.this, MainActivity.class);
+                Intent intent = new Intent(USBMainActivity.this, MainActivity.class);
                 startActivity(intent);
                 //finish();
             }
@@ -130,7 +129,7 @@ public class USBMainActivity extends AppCompatActivity implements AdapterView.On
         /**
          * 设置为横屏
          */
-        if(getRequestedOrientation()!=ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE){
+        if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
         super.onResume();
@@ -227,8 +226,8 @@ public class USBMainActivity extends AppCompatActivity implements AdapterView.On
 //            Log.d(TAG, "Occupied Space: " + currentFs.getOccupiedSpace());
 //            Log.d(TAG, "Free Space: " + currentFs.getFreeSpace());
 //            Log.d(TAG, "Chunk size: " + currentFs.getChunkSize());
-            UsbFile root = currentFs.getRootDirectory();//获取根目录
-            String deviceName = currentFs.getVolumeLabel();//获取设备标签
+            UsbFile root = currentFs.getRootDirectory();        //获取根目录
+            String deviceName = currentFs.getVolumeLabel();     //获取设备标签
             setMsg("正在读取U盘" + deviceName);
             tv_title.setText(deviceName);//设置标题
             cFolder = root;//设置当前文件对象
@@ -241,13 +240,13 @@ public class USBMainActivity extends AppCompatActivity implements AdapterView.On
 
 
     @Override
-    public void onClick(View v) {//点击标题 返回上一级目录
+    public void onClick(View v) {           //点击标题 返回上一级目录
         if (v.getId() == R.id.main_tv_title) {
             if (cFolder != null) {
-                if (!cFolder.isRoot()) {//如果不是根目录
+                if (!cFolder.isRoot()) {    //如果不是根目录
                     cFolder = cFolder.getParent();
                     String cPath = tv_title.getText().toString();
-                    tv_title.setText(cPath.substring(0, cPath.lastIndexOf("/")));//从0到最后一级目录
+                    tv_title.setText(cPath.substring(0, cPath.lastIndexOf("/")));   //从0到最后一级目录
                     addFile2List();
                 }
             }
@@ -256,7 +255,7 @@ public class USBMainActivity extends AppCompatActivity implements AdapterView.On
             sdFileDialog.setCallBack(new ChooseSDFileDialog.ChooseFileCallBack() {
                 @Override
                 public void onChoose(final File f) {
-                    if (cFolder == null) {//表示当前目录根本不存在
+                    if (cFolder == null) {  //表示当前目录根本不存在
                         setMsg("未检测到U盘目录");
                     } else {
                         if (usbFiles != null) {
@@ -316,10 +315,10 @@ public class USBMainActivity extends AppCompatActivity implements AdapterView.On
                     }
                 });
             }
-        } else {//如果选了一个文件
+        } else {    //如果选了一个文件
             try {
                 usbFile = folder.createFile(f.getName());
-                if (folder == cFolder) {//如果是在当前目录 就添加到集合中
+                if (folder == cFolder) {    //如果是在当前目录 就添加到集合中
                     usbFiles.add(usbFile);
                 }
                 saveSDFile2OTG(usbFile, f);
@@ -335,8 +334,8 @@ public class USBMainActivity extends AppCompatActivity implements AdapterView.On
     }
 
     private void saveSDFile2OTG(final UsbFile usbFile, final File f) {
-        try {//开始写入
-            FileInputStream fis = new FileInputStream(f);//读取选择的文件的
+        try {   //开始写入
+            FileInputStream fis = new FileInputStream(f);   //读取选择的文件的
             UsbFileOutputStream uos = new UsbFileOutputStream(usbFile);
             redFileStream(uos, fis);
             runOnUiThread(new Runnable() {
@@ -363,7 +362,7 @@ public class USBMainActivity extends AppCompatActivity implements AdapterView.On
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {//点击item 进入该目录
         UsbFile file = usbFiles.get(position);
-        if (file.isDirectory()) {//如果是文件夹
+        if (file.isDirectory()) {   //如果是文件夹
             cFolder = file;
             tv_title.append("/" + cFolder.getName());
             addFile2List();
@@ -373,7 +372,7 @@ public class USBMainActivity extends AppCompatActivity implements AdapterView.On
     }
 
     private void readFile(final UsbFile uFile) {
-        String sdPath = SDUtils.getSDPath();//获取sd根目录 创建一个同名文件
+        String sdPath = SDUtils.getSDPath();    //获取sd根目录 创建一个同名文件
         String filePath = sdPath + "/" + uFile.getName();
         final File f = new File(filePath);
         if (f.exists()) {
@@ -435,7 +434,7 @@ public class USBMainActivity extends AppCompatActivity implements AdapterView.On
         is.close();
     }
 
-    private void addFile2List() {//添加文件和文件夹到gridView显示
+    private void addFile2List() {   //添加文件和文件夹到gridView显示
         try {
             usbFiles.clear();
             for (UsbFile file : cFolder.listFiles()) {
@@ -505,7 +504,7 @@ public class USBMainActivity extends AppCompatActivity implements AdapterView.On
 
     private void setMsg(String msg) {
         tv_msg.append(msg + "\n");
-        sv.fullScroll(ScrollView.FOCUS_DOWN);//滚动到底部
+        sv.fullScroll(ScrollView.FOCUS_DOWN);   //滚动到底部
     }
 
     private static class UsbFileAdapter extends BaseAdapter {
