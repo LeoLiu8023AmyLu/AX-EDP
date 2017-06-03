@@ -1,7 +1,6 @@
 package com.leoliu.anshare.ax_edp;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +23,7 @@ public class MainPreView extends Fragment {
     private int Text_Page = 1;
     private int Text_Page_Max;
     private int Page_Text_Num = 160;
-    private float TextSize=25;
+    private float TextSize = 25;
 
     public MainPreView() {
     }
@@ -40,11 +39,10 @@ public class MainPreView extends Fragment {
         // 开始文件读取
         InputStream inputStream = getResources().openRawResource(R.raw.readme);
         final String Main_string;
-        String Txt_File_Path=MA.Get_Text_File_Path();
-        if(Txt_File_Path.equals("")) {
-            Main_string = TxtReader.getString(inputStream,"utf-8");
-        }
-        else{
+        String Txt_File_Path = MA.Get_Text_File_Path();
+        if (Txt_File_Path.equals("")) {
+            Main_string = TxtReader.getString(inputStream, "utf-8");
+        } else {
             Toast.makeText(getActivity(), "文件地址:\n" + Txt_File_Path + " Get", Toast.LENGTH_SHORT).show();
             Main_string = TxtReader.getString(Txt_File_Path);
         }
@@ -54,14 +52,14 @@ public class MainPreView extends Fragment {
         PreView_Text.setTextSize(TextSize);
         PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Page_Text_Num * Text_Page));
         Text_Page_Max = (int) (Math.ceil(((int) Main_string.length()) / Page_Text_Num) + 1);
-        Toast.makeText(getActivity(), "长度: " + Main_string.length()+" 字\n每页字数: "+Page_Text_Num+" 字\n最大页面数: "+Text_Page_Max+" 页", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "长度: " + Main_string.length() + " 字\n每页字数: " + Page_Text_Num + " 字\n最大页面数: " + Text_Page_Max + " 页", Toast.LENGTH_LONG).show();
 
         /**
          * 页面控制部分
          * @ 功能：后退，翻页
          */
         //页面控制
-        final SeekBar F_text_SeekBar=(SeekBar) rootView.findViewById(R.id.MainPreView_SeekBar);
+        final SeekBar F_text_SeekBar = (SeekBar) rootView.findViewById(R.id.MainPreView_SeekBar);
         F_text_SeekBar.setMax(Text_Page_Max);
         F_text_SeekBar.setProgress(1);
         Button F_text_Up = (Button) rootView.findViewById(R.id.F_text_Up);
@@ -89,7 +87,7 @@ public class MainPreView extends Fragment {
                     Text_Page = Text_Page + 1;
                     PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Page_Text_Num * Text_Page));
                 } else {
-                    Text_Page=Text_Page_Max;
+                    Text_Page = Text_Page_Max;
                     PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Main_string.length()));
                 }
                 //F_text_SeekBar.setProgress(Text_Page);
@@ -108,29 +106,31 @@ public class MainPreView extends Fragment {
         F_text_SeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                Text_Page=F_text_SeekBar.getProgress();
-                if(Text_Page>0) {
-                    try{
+                Text_Page = F_text_SeekBar.getProgress();
+                if (Text_Page > 0) {
+                    try {
                         if (Page_Text_Num * (Text_Page) < Main_string.length()) {
                             Text_Page = Text_Page + 1;
                             PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Page_Text_Num * Text_Page));
                         } else {
-                            Text_Page=Text_Page_Max;
+                            Text_Page = Text_Page_Max;
                             PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Main_string.length()));
                         }
 
-                    } catch (Exception E){
-                        System.out.println("--> SeekBar"+E.toString());
+                    } catch (Exception E) {
+                        System.out.println("--> SeekBar" + E.toString());
                     }
-                }
-                else{
+                } else {
                     Text_Page = 1;
                     PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Page_Text_Num * Text_Page));
                 }
-                System.out.println("--> SeekBar 进度"+Text_Page+"");
+                System.out.println("--> SeekBar 进度" + Text_Page + "");
             }
+
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 Toast.makeText(getActivity(), "滚动条定位 Page:" + Text_Page + "", Toast.LENGTH_SHORT).show();

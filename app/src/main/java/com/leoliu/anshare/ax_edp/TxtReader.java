@@ -1,5 +1,7 @@
 package com.leoliu.anshare.ax_edp;
 
+import org.mozilla.universalchardet.UniversalDetector;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -9,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import org.mozilla.universalchardet.UniversalDetector;
 
 public class TxtReader {
     /**
@@ -18,7 +19,7 @@ public class TxtReader {
      * @param inputStream
      * @return
      */
-    public static String getString(InputStream inputStream,String Txt_Charset) {
+    public static String getString(InputStream inputStream, String Txt_Charset) {
         InputStreamReader inputStreamReader = null;    // 初始化 InputStreamer
         try {
             inputStreamReader = new InputStreamReader(inputStream, Txt_Charset);    // 编码需要更新
@@ -47,7 +48,7 @@ public class TxtReader {
      */
     public static String getString(String filepath) {
         File file = new File(filepath);    // 使用文件路径 创建 File 类型文件
-        String Txt_Charset=getCharset(file);  // 简单判断程序
+        String Txt_Charset = getCharset(file);  // 简单判断程序
         //String Txt_Charset=getFileIncode(file); // Google推荐程序
         FileInputStream fileInputStream = null;
         try {
@@ -55,7 +56,7 @@ public class TxtReader {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return getString(fileInputStream,Txt_Charset);
+        return getString(fileInputStream, Txt_Charset);
     }
 
     /**

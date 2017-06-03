@@ -6,7 +6,6 @@ package com.leoliu.anshare.ax_edp;
 
 import android.app.ListFragment;
 import android.content.Intent;
-import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -17,6 +16,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +27,7 @@ import java.util.Stack;
 public class FileManager extends ListFragment {
 
     public static final String COLUMN_NAME_NAME = "name";   // 列名称
-    private static boolean OTG_Flag=false;                  // USB 设备可用标识符
+    private static boolean OTG_Flag = false;                  // USB 设备可用标识符
     private SimpleAdapter adapter = null;                   // 适配器
     private List<Map<String, Object>> itemList;             // 列表文件
     private Stack<String> pathHistory = null;               // 历史路径
@@ -52,14 +52,13 @@ public class FileManager extends ListFragment {
             @Override
             public void onClick(View v) {
                 // 显示 U 盘路径
-                MainActivity MA=new MainActivity();
-                OTG_Flag=MA.Get_OTG_Flag();
-                if(OTG_Flag){
+                MainActivity MA = new MainActivity();
+                OTG_Flag = MA.Get_OTG_Flag();
+                if (OTG_Flag) {
                     Toast.makeText(getActivity(), "已检测到设备", Toast.LENGTH_SHORT).show();
                     // 接下来需要使用另一个 Fragment 来完成 USB 的读取工作
                     goToIntent(rootView);
-                }
-                else{
+                } else {
                     Toast.makeText(getActivity(), "未检测到设备", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -100,6 +99,7 @@ public class FileManager extends ListFragment {
 
     /**
      * 列表更新
+     *
      * @param path
      * @return list
      */
@@ -129,6 +129,7 @@ public class FileManager extends ListFragment {
 
     /**
      * 列表点击事件处理
+     *
      * @param l
      * @param v
      * @param position
@@ -158,8 +159,8 @@ public class FileManager extends ListFragment {
             // 装载文件
             TextFilePath = curPath + itemList.get(position).get(COLUMN_NAME_NAME);
             Toast.makeText(getActivity(), "文件完整地址:\n" + TextFilePath, Toast.LENGTH_LONG).show();
-            if((TextFilePath.substring((TextFilePath.length()-4),TextFilePath.length())).equals(".txt")){
-                MainActivity MA=new MainActivity();
+            if ((TextFilePath.substring((TextFilePath.length() - 4), TextFilePath.length())).equals(".txt")) {
+                MainActivity MA = new MainActivity();
                 MA.Set_Text_File_Path(TextFilePath);
                 Toast.makeText(getActivity(), itemList.get(position).get(COLUMN_NAME_NAME) + "是txt文件，已回传给MainActivity", Toast.LENGTH_SHORT).show();
             }
@@ -168,6 +169,7 @@ public class FileManager extends ListFragment {
 
     /**
      * 更新列表
+     *
      * @param path
      */
     private void updateList(String path) {
