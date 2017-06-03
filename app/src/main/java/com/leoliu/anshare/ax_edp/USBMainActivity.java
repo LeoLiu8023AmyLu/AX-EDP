@@ -67,11 +67,12 @@ public class USBMainActivity extends AppCompatActivity implements AdapterView.On
     private ExecutorService executorService;
     private ProgressDialog dialog_wait;
 
+    String USBFilePath="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.usb_activity_main);
-        Intent intent = getIntent();
         bindView();
         registerReceiver();
         redDeviceList();//一开始就需要尝试读取一次
@@ -90,11 +91,11 @@ public class USBMainActivity extends AppCompatActivity implements AdapterView.On
          * @ 功能：后退，翻页
          */
         //页面控制
-        Button File_Button_U = (Button) findViewById(R.id.USB_Button_U);
+        Button File_Button_U = (Button) findViewById(R.id.USB_Button_Help);
         File_Button_U.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Toast.makeText(USBMainActivity.this, "点击优盘中的文件即可完成复制\n点击显示可以直接查看文件", Toast.LENGTH_SHORT).show();
             }
         });
         Button File_Button_next = (Button) findViewById(R.id.USB_Button_next);
@@ -102,8 +103,18 @@ public class USBMainActivity extends AppCompatActivity implements AdapterView.On
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(USBMainActivity.this, MainActivity.class);
+                if(USBFilePath.length()>4) {
+                    if ((USBFilePath.substring((USBFilePath.length() - 4), USBFilePath.length())).toLowerCase().equals(".txt")) {
+                    }
+                    else{
+                        USBFilePath="";
+                    }
+                }
+                else{
+                    USBFilePath="";
+                }
+                intent.putExtra("FilePath", USBFilePath);
                 startActivity(intent);
-                //finish();
             }
         });
         // 返回上一页面
@@ -375,6 +386,7 @@ public class USBMainActivity extends AppCompatActivity implements AdapterView.On
     private void readFile(final UsbFile uFile) {
         String sdPath = SDUtils.getSDPath();//获取sd根目录 创建一个同名文件
         String filePath = sdPath + "/documents/" + uFile.getName(); // 复制地址进行更改
+        USBFilePath=filePath;
         final File f = new File(filePath);
         if (f.exists()) {
             setMsg("文件已存在：" + filePath);
@@ -398,6 +410,7 @@ public class USBMainActivity extends AppCompatActivity implements AdapterView.On
                                 public void run() {
                                     dialog_wait.dismiss();
                                     setMsg("文件已读取到sd卡中：" + f.getAbsolutePath());
+                                    Toast.makeText(USBMainActivity.this, "文件复制完成，返回后即可选中查看", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         } catch (final Exception e) {

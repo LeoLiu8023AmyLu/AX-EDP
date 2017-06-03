@@ -27,7 +27,7 @@ import java.util.Stack;
 public class FileManager extends ListFragment {
 
     public static final String COLUMN_NAME_NAME = "name";   // 列名称
-    private static boolean OTG_Flag = false;                  // USB 设备可用标识符
+    private static boolean OTG_Flag = false;                // USB 设备可用标识符
     private SimpleAdapter adapter = null;                   // 适配器
     private List<Map<String, Object>> itemList;             // 列表文件
     private Stack<String> pathHistory = null;               // 历史路径
@@ -159,10 +159,10 @@ public class FileManager extends ListFragment {
             // 装载文件
             TextFilePath = curPath + itemList.get(position).get(COLUMN_NAME_NAME);
             Toast.makeText(getActivity(), "文件完整地址:\n" + TextFilePath, Toast.LENGTH_LONG).show();
-            if ((TextFilePath.substring((TextFilePath.length() - 4), TextFilePath.length())).equals(".txt")) {
+            if ((TextFilePath.substring((TextFilePath.length() - 4), TextFilePath.length())).toLowerCase().equals(".txt")) {
                 MainActivity MA = new MainActivity();
                 MA.Set_Text_File_Path(TextFilePath);
-                Toast.makeText(getActivity(), itemList.get(position).get(COLUMN_NAME_NAME) + "是txt文件，已回传给MainActivity", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "["+itemList.get(position).get(COLUMN_NAME_NAME) + "] 是可读取文件，已回传给MainActivity", Toast.LENGTH_SHORT).show();
             }
         }
     }

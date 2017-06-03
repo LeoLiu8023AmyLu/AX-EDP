@@ -100,12 +100,12 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/USB_Button_U"
+                    android:id="@+id/USB_Button_Help"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.3"
                     android:background="#4488FF"
-                    android:text="查看设备"
+                    android:text="帮助"
                     android:textSize="20sp" />
 
             </LinearLayout>

@@ -82,3 +82,5 @@
 * 2017.06.03 主要优先解决复制文件的操作问题<br>
     > `USBMainActivity` 中 设置复制路径为 `String filePath = sdPath + "/documents/" + uFile.getName();`<br>
     > 目前采用独立的`USBMainActivity`来完成优盘文件的复制，然后再从本机读取<br>
+    > 完善文件类型判断程序<br>
+    > `Intent` 传递 `USBFilePath` <br>
