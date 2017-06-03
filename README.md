@@ -78,3 +78,7 @@
     > 尝试直接从 OTG 中打开 txt 文件<br>
     
     > <div align=center><img  width="480" height="270" src="https://raw.githubusercontent.com/LeoLiu8023AmyLu/AX-EDP/master/ScreenCapture/device-2017-06-02-165211.png"/></div> </br>
+    
+* 2017.06.03 主要优先解决复制文件的操作问题<br>
+    > `USBMainActivity` 中 设置复制路径为 `String filePath = sdPath + "/documents/" + uFile.getName();`<br>
+    > 目前采用独立的`USBMainActivity`来完成优盘文件的复制，然后再从本机读取<br>
