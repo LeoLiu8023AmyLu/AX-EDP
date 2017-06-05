@@ -48,8 +48,11 @@ public class TxtReader {
      */
     public static String getString(String filepath) {
         File file = new File(filepath);    // 使用文件路径 创建 File 类型文件
-        String Txt_Charset = getCharset(file);  // 简单判断程序
-        //String Txt_Charset=getFileIncode(file); // Google推荐程序
+        //String Txt_Charset = getCharset(file);  // 简单判断程序
+        String Txt_Charset=getFileIncode(file); // Google推荐程序
+        if(Txt_Charset.equals(null)){ // 若有Null 情况则采用 UTF-8
+            Txt_Charset="UTF-8";
+        }
         FileInputStream fileInputStream = null;
         try {
             fileInputStream = new FileInputStream(file);

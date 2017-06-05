@@ -57,10 +57,10 @@ public class FileManager extends ListFragment {
                 if (OTG_Flag) {
                     Toast.makeText(getActivity(), "已检测到设备", Toast.LENGTH_SHORT).show();
                     // 接下来需要使用另一个 Fragment 来完成 USB 的读取工作
-                    goToIntent(rootView);
                 } else {
                     Toast.makeText(getActivity(), "未检测到设备", Toast.LENGTH_SHORT).show();
                 }
+                goToIntent(rootView);   // 打开 USB OTG 程序
             }
         });
         Button File_Button_next = (Button) rootView.findViewById(R.id.File_Button_next);
@@ -158,11 +158,13 @@ public class FileManager extends ListFragment {
         } else {
             // 装载文件
             TextFilePath = curPath + itemList.get(position).get(COLUMN_NAME_NAME);
-            Toast.makeText(getActivity(), "文件完整地址:\n" + TextFilePath, Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "文件完整地址:\n" + TextFilePath, Toast.LENGTH_SHORT).show();
             if ((TextFilePath.substring((TextFilePath.length() - 4), TextFilePath.length())).toLowerCase().equals(".txt")) {
                 MainActivity MA = new MainActivity();
                 MA.Set_Text_File_Path(TextFilePath);
                 Toast.makeText(getActivity(), "[" + itemList.get(position).get(COLUMN_NAME_NAME) + "] 是可读取文件，已回传给MainActivity", Toast.LENGTH_SHORT).show();
+                // 打开新页面预览
+                getFragmentManager().beginTransaction().replace(R.id.container, new MainPreView()).commit();
             }
         }
     }
