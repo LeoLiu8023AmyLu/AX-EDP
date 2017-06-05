@@ -88,3 +88,4 @@
     > `SeekBar`与上下翻页按钮 联动<br>
     > 更改 **txt** 的编码程序，采用`juniversalchardet.jar` **Google**提供的工具程序<br>
     > 点击 `TXT` 文件 自动打开浏览<br>
+    > 文件主浏览界面 `SeekBar` UI调整为底部对齐,文字部分设置为'match_parent'<br>
