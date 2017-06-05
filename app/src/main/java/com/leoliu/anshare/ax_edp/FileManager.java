@@ -162,7 +162,7 @@ public class FileManager extends ListFragment {
             if ((TextFilePath.substring((TextFilePath.length() - 4), TextFilePath.length())).toLowerCase().equals(".txt")) {
                 MainActivity MA = new MainActivity();
                 MA.Set_Text_File_Path(TextFilePath);
-                Toast.makeText(getActivity(), "["+itemList.get(position).get(COLUMN_NAME_NAME) + "] 是可读取文件，已回传给MainActivity", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "[" + itemList.get(position).get(COLUMN_NAME_NAME) + "] 是可读取文件，已回传给MainActivity", Toast.LENGTH_SHORT).show();
             }
         }
     }

@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
             getFragmentManager().beginTransaction().add(R.id.container, new MainWindow()).commit();
         }
         Intent intent = getIntent();
-        TextFilePath=intent.getStringExtra("FilePath");
+        TextFilePath = intent.getStringExtra("FilePath");
         Start_OTG_IntentFilter();   // 监听 OTG USB 的插入事件
         Thread_Start();             // 开始 时间自动更新 线程
     }

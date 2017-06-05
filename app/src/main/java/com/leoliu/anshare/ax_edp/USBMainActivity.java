@@ -67,7 +67,7 @@ public class USBMainActivity extends AppCompatActivity implements AdapterView.On
     private ExecutorService executorService;
     private ProgressDialog dialog_wait;
 
-    String USBFilePath="";
+    String USBFilePath = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,16 +102,14 @@ public class USBMainActivity extends AppCompatActivity implements AdapterView.On
         File_Button_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(USBMainActivity.this, MainActivity.class);
-                if(USBFilePath.length()>4) {
+                Intent intent = new Intent(USBMainActivity.this, MainActivity.class);
+                if (USBFilePath.length() > 4) {
                     if ((USBFilePath.substring((USBFilePath.length() - 4), USBFilePath.length())).toLowerCase().equals(".txt")) {
+                    } else {
+                        USBFilePath = "";
                     }
-                    else{
-                        USBFilePath="";
-                    }
-                }
-                else{
-                    USBFilePath="";
+                } else {
+                    USBFilePath = "";
                 }
                 intent.putExtra("FilePath", USBFilePath);
                 startActivity(intent);
@@ -141,7 +139,7 @@ public class USBMainActivity extends AppCompatActivity implements AdapterView.On
         /**
          * 设置为横屏
          */
-        if(getRequestedOrientation()!=ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE){
+        if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
         super.onResume();
@@ -386,7 +384,7 @@ public class USBMainActivity extends AppCompatActivity implements AdapterView.On
     private void readFile(final UsbFile uFile) {
         String sdPath = SDUtils.getSDPath();//获取sd根目录 创建一个同名文件
         String filePath = sdPath + "/documents/" + uFile.getName(); // 复制地址进行更改
-        USBFilePath=filePath;
+        USBFilePath = filePath;
         final File f = new File(filePath);
         if (f.exists()) {
             setMsg("文件已存在：" + filePath);
