@@ -84,3 +84,6 @@
     > 目前采用独立的`USBMainActivity`来完成优盘文件的复制，然后再从本机读取<br>
     > 完善文件类型判断程序<br>
     > `Intent` 传递 `USBFilePath` <br>
+* 2017.06.05 完善显示界面SeekBar的细节问题;Txt编码还是不能全部识别<br>
+    > `SeekBar`与上下翻页按钮 联动<br>
+    > 

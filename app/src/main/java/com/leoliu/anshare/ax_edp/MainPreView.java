@@ -74,7 +74,7 @@ public class MainPreView extends Fragment {
                     Text_Page = 1;
                     PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Page_Text_Num * Text_Page));
                 }
-                //F_text_SeekBar.setProgress(Text_Page);
+                F_text_SeekBar.setProgress(Text_Page);
                 Toast.makeText(getActivity(), "向上翻页 Page:" + Text_Page + "", Toast.LENGTH_SHORT).show();
             }
         });
@@ -90,7 +90,7 @@ public class MainPreView extends Fragment {
                     Text_Page = Text_Page_Max;
                     PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Main_string.length()));
                 }
-                //F_text_SeekBar.setProgress(Text_Page);
+                F_text_SeekBar.setProgress(Text_Page);
                 Toast.makeText(getActivity(), "向下翻页 Page:" + Text_Page + "", Toast.LENGTH_SHORT).show();
             }
         });
@@ -106,23 +106,25 @@ public class MainPreView extends Fragment {
         F_text_SeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                Text_Page = F_text_SeekBar.getProgress();
-                if (Text_Page > 0) {
-                    try {
-                        if (Page_Text_Num * (Text_Page) < Main_string.length()) {
-                            Text_Page = Text_Page + 1;
-                            PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Page_Text_Num * Text_Page));
-                        } else {
-                            Text_Page = Text_Page_Max;
-                            PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Main_string.length()));
-                        }
+                if(Text_Page!=F_text_SeekBar.getProgress()) {
+                    Text_Page = F_text_SeekBar.getProgress();
+                    if (Text_Page > 0) {
+                        try {
+                            if (Page_Text_Num * (Text_Page) < Main_string.length()) {
+                                Text_Page = Text_Page + 1;
+                                PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Page_Text_Num * Text_Page));
+                            } else {
+                                Text_Page = Text_Page_Max;
+                                PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Main_string.length()));
+                            }
 
-                    } catch (Exception E) {
-                        System.out.println("--> SeekBar" + E.toString());
+                        } catch (Exception E) {
+                            System.out.println("--> SeekBar" + E.toString());
+                        }
+                    } else {
+                        Text_Page = 1;
+                        PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Page_Text_Num * Text_Page));
                     }
-                } else {
-                    Text_Page = 1;
-                    PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Page_Text_Num * Text_Page));
                 }
                 System.out.println("--> SeekBar 进度" + Text_Page + "");
             }
