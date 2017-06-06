@@ -164,7 +164,7 @@ public class FileManager extends ListFragment {
                 MA.Set_Text_File_Path(TextFilePath);
                 Toast.makeText(getActivity(), "[" + itemList.get(position).get(COLUMN_NAME_NAME) + "] 是可读取文件，已回传给MainActivity", Toast.LENGTH_SHORT).show();
                 // 打开新页面预览
-                getFragmentManager().beginTransaction().replace(R.id.container, new MainPreView()).commit();
+                //MA.GoTo_MainPreView();
             }
         }
     }

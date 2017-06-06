@@ -106,6 +106,12 @@ public class MainActivity extends Activity {
         System.out.println("-->回传的文件地址:" + TextFilePath + "");
         return TextFilePath;
     }
+    /**
+     * 直接显示
+     */
+    public void GoTo_MainPreView(){
+        getFragmentManager().beginTransaction().add(R.id.container, new MainPreView()).commit();
+    }
 
     /**
      * 退出关闭线程
