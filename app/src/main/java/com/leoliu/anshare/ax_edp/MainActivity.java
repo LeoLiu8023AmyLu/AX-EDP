@@ -197,6 +197,7 @@ public class MainActivity extends Activity {
                     break;
             }
             Set_Time_Flag(true);
+            context.unregisterReceiver(this); // 在不需要这个广播的时候手动注销
         }
     };
 
