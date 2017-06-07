@@ -36,13 +36,19 @@ public class MainPreView extends Fragment {
         MA.Set_Time_Flag(false);
         //初始化 控件
         final TextView PreView_Text = (TextView) rootView.findViewById(R.id.MainPreView_Text);
-        // 开始文件读取
-        InputStream inputStream = getResources().openRawResource(R.raw.readme);
         final String Main_string;
         String Txt_File_Path = MA.Get_Text_File_Path();
-        if (Txt_File_Path.equals("")) {
-            Main_string = TxtReader.getString(inputStream, "utf-8");
-        } else {
+        System.out.println("--> 文件目录:"+Txt_File_Path);
+        if (Txt_File_Path == null) {
+            // 开始文件读取
+            InputStream inputStream = getResources().openRawResource(R.raw.readme);
+            Main_string = TxtReader.getString(inputStream, "UTF-8");
+        }else if(Txt_File_Path.equals("")){
+            // 开始文件读取
+            InputStream inputStream = getResources().openRawResource(R.raw.readme);
+            Main_string = TxtReader.getString(inputStream, "UTF-8");
+        }
+        else {
             Toast.makeText(getActivity(), "文件地址:\n" + Txt_File_Path + " Get", Toast.LENGTH_SHORT).show();
             Main_string = TxtReader.getString(Txt_File_Path);
         }

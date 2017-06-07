@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
         }
         Intent intent = getIntent();
         TextFilePath = intent.getStringExtra("FilePath");
-        Start_OTG_IntentFilter();   // 监听 OTG USB 的插入事件
+        //Start_OTG_IntentFilter();   // 监听 OTG USB 的插入事件
         Thread_Start();             // 开始 时间自动更新 线程
     }
 
@@ -133,10 +133,10 @@ public class MainActivity extends Activity {
         Set_Time_Flag(TimeFlag);
         super.onResume();
         // USB  状态监测
-        IntentFilter usbFilter = new IntentFilter();
-        usbFilter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
-        usbFilter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
-        registerReceiver(mUsbReceiver, usbFilter);
+        //IntentFilter usbFilter = new IntentFilter();
+        //usbFilter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
+        //usbFilter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
+        //registerReceiver(mUsbReceiver, usbFilter);
     }
 
     @Override
