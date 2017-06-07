@@ -64,9 +64,13 @@ public class MainActivity extends Activity {
         usbDeviceStateFilter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
         //注册监听自定义广播
         IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
-        registerReceiver(mUsbReceiver, filter);
-        //otg插入 播出广播
-        registerReceiver(mUsbReceiver, usbDeviceStateFilter);//这里我用的碎片
+        try {
+            registerReceiver(mUsbReceiver, filter);
+            //otg插入 播出广播
+            registerReceiver(mUsbReceiver, usbDeviceStateFilter);//这里我用的碎片
+        }catch (Exception E){
+            System.out.println("--> OTG IntentFilter"+E.getMessage());
+        }
     }
 
     /**
@@ -105,12 +109,6 @@ public class MainActivity extends Activity {
     public String Get_Text_File_Path() {
         System.out.println("-->回传的文件地址:" + TextFilePath + "");
         return TextFilePath;
-    }
-    /**
-     * 直接显示
-     */
-    public void GoTo_MainPreView(){
-        getFragmentManager().beginTransaction().add(R.id.container, new MainPreView()).commit();
     }
 
     /**

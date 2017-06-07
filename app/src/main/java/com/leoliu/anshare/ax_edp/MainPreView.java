@@ -50,8 +50,13 @@ public class MainPreView extends Fragment {
         //inputstreamtofile(inputStream, TxtFile);
         //final ProcessText PT = new ProcessText(TxtFile, 1);
         PreView_Text.setTextSize(TextSize);
-        PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Page_Text_Num * Text_Page));
         Text_Page_Max = (int) (Math.ceil(((int) Main_string.length()) / Page_Text_Num) + 1);
+        if(Main_string.length()>Page_Text_Num) {
+            PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Page_Text_Num * Text_Page));
+        }
+        else{
+            PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Main_string.length()));
+        }
         Toast.makeText(getActivity(), "长度: " + Main_string.length() + " 字\n每页字数: " + Page_Text_Num + " 字\n最大页面数: " + Text_Page_Max + " 页", Toast.LENGTH_LONG).show();
 
         /**
@@ -72,7 +77,12 @@ public class MainPreView extends Fragment {
                     PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Page_Text_Num * Text_Page));
                 } else {
                     Text_Page = 1;
-                    PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Page_Text_Num * Text_Page));
+                    if(Main_string.length()>Page_Text_Num) {
+                        PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Page_Text_Num * Text_Page));
+                    }
+                    else{
+                        PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Main_string.length()));
+                    }
                 }
                 F_text_SeekBar.setProgress(Text_Page);
                 Toast.makeText(getActivity(), "向上翻页 Page:" + Text_Page + "", Toast.LENGTH_SHORT).show();
@@ -123,7 +133,12 @@ public class MainPreView extends Fragment {
                         }
                     } else {
                         Text_Page = 1;
-                        PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Page_Text_Num * Text_Page));
+                        if(Main_string.length()>Page_Text_Num) {
+                            PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Page_Text_Num * Text_Page));
+                        }
+                        else{
+                            PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Main_string.length()));
+                        }
                     }
                 }
                 System.out.println("--> SeekBar 进度" + Text_Page + "");
