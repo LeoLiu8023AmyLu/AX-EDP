@@ -85,10 +85,22 @@ public class MainActivity extends Activity {
         } else {
             TimeT.setStop();
         }
-    }
-
-    public boolean Get_Time_Flag() {
-        return TimeFlag;
+        // 需要对线程 New \ TERMINATED \ TIMED_WAITING 状态进行更新
+        /*
+        System.out.println("++>Time_Flag: " + TimeFlag + "\n++>TimeT: " + TimeT.getName() + "\n++>TimeT ID: " + TimeT.getId() + "\n++>TimeT State: " + TimeT.getState());
+        if(!TimeT.getState().equals("RUNNABLE")){
+            System.out.println("线程状态是 非 Runnable");
+            if(TimeT.getState().equals("NEW")){
+                System.out.println("线程状态是New");
+                TimeT.start();
+            }
+            else if(TimeT.getState().equals("TERMINATED")){
+                System.out.println("线程状态是TERMINATED");
+                TimeT.start();
+            }
+        }
+        System.out.println("++>Time_Flag: " + TimeFlag + "\n++>TimeT: " + TimeT.getName() + "\n++>TimeT ID: " + TimeT.getId() + "\n++>TimeT State: " + TimeT.getState());
+        */
     }
 
     /**
