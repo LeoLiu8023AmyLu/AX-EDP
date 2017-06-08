@@ -383,7 +383,7 @@ public class USBMainActivity extends AppCompatActivity implements AdapterView.On
 
     private void readFile(final UsbFile uFile) {
         String sdPath = SDUtils.getSDPath();//获取sd根目录 创建一个同名文件
-        String filePath = sdPath + "/documents/" + uFile.getName(); // 复制地址进行更改
+        String filePath = sdPath +  uFile.getName(); // 复制地址进行更改  "/documents/" +
         USBFilePath = filePath;
         final File f = new File(filePath);
         if (f.exists()) {

@@ -1,9 +1,7 @@
 package com.leoliu.anshare.ax_edp;
-
 /**
  * Created by Anshare_LY on 2017/5/23.
  */
-
 import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +14,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,7 +87,8 @@ public class FileManager extends ListFragment {
         String sDStateString = Environment.getExternalStorageState();
         if (sDStateString.equals(Environment.MEDIA_MOUNTED)) {
             File SDFile = Environment.getExternalStorageDirectory();
-            curPath = SDFile.getAbsolutePath() + "/documents/";
+            curPath = SDFile.getAbsolutePath();// + "/documents/";
+            System.out.println("获取到的地址: "+curPath);
             itemList = getData(curPath);
             adapter = new SimpleAdapter(getActivity(), itemList, R.layout.list_item, from, to);
             setListAdapter(adapter);
@@ -111,6 +109,7 @@ public class FileManager extends ListFragment {
         list.add(map);
 
         File file = new File(path);
+        System.out.println("文件列表: "+file.listFiles());
         if (file.listFiles().length > 0) {
             for (File f : file.listFiles()) {
                 map = new HashMap<String, Object>();
@@ -150,7 +149,6 @@ public class FileManager extends ListFragment {
                 path = curPath;
         }
         Log.d("List View Click", " position: " + position + " name: " + path);
-
         File file = new File(path);
         if (file.isDirectory()) {
             updateList(path);
