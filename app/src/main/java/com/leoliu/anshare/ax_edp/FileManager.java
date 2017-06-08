@@ -158,7 +158,7 @@ public class FileManager extends ListFragment {
         } else {
             // 装载文件
             TextFilePath = curPath + itemList.get(position).get(COLUMN_NAME_NAME);
-            Toast.makeText(getActivity(), "文件完整地址:\n" + TextFilePath, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "文件完整地址:\n" + TextFilePath, Toast.LENGTH_SHORT).show();
             if ((TextFilePath.substring((TextFilePath.length() - 4), TextFilePath.length())).toLowerCase().equals(".txt")) {
                 MainActivity MA = new MainActivity();
                 MA.Set_Text_File_Path(TextFilePath);
@@ -180,7 +180,7 @@ public class FileManager extends ListFragment {
         adapter = new SimpleAdapter(getActivity(), itemList, R.layout.list_item, from, to);
         setListAdapter(adapter);
         adapter.notifyDataSetChanged();
-        Toast.makeText(getActivity(), "当前地址:\n" + path, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "当前地址:\n" + path, Toast.LENGTH_SHORT).show();
     }
 
     public void goToIntent(View view) {
