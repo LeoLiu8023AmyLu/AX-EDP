@@ -50,12 +50,34 @@
                     android:textSize="30sp"
                     android:ems="10" />
 
-                <SeekBar
-                    android:id="@+id/MainPreView_SeekBar"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
+                    android:layout_weight="0.05"
                     android:layout_gravity="bottom"
-                    android:layout_weight="0.05" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/MainPreView_Page"
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="Page"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:layout_weight="0.01"
+                        android:textSize="15sp"
+                        android:ems="10" />
+
+                    <SeekBar
+                        android:id="@+id/MainPreView_SeekBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="9" />
+                </LinearLayout>
 
             </LinearLayout>
 

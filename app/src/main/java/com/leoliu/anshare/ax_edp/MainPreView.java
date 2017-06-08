@@ -49,7 +49,7 @@ public class MainPreView extends Fragment {
             Main_string = TxtReader.getString(inputStream, "UTF-8");
         }
         else {
-            Toast.makeText(getActivity(), "文件地址:\n" + Txt_File_Path + " Get", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "文件: " + Txt_File_Path + " 已读取", Toast.LENGTH_SHORT).show();
             Main_string = TxtReader.getString(Txt_File_Path);
         }
         //File TxtFile = new File("Leo.txt");
@@ -71,6 +71,8 @@ public class MainPreView extends Fragment {
          */
         //页面控制
         final SeekBar F_text_SeekBar = (SeekBar) rootView.findViewById(R.id.MainPreView_SeekBar);
+        final TextView F_Page=(TextView) rootView.findViewById(R.id.MainPreView_Page);
+        F_Page.setText(""+Text_Page+"");
         F_text_SeekBar.setMax(Text_Page_Max);
         F_text_SeekBar.setProgress(1);
         Button F_text_Up = (Button) rootView.findViewById(R.id.F_text_Up);
@@ -91,7 +93,8 @@ public class MainPreView extends Fragment {
                     }
                 }
                 F_text_SeekBar.setProgress(Text_Page);
-                Toast.makeText(getActivity(), "向上翻页 Page:" + Text_Page + "", Toast.LENGTH_SHORT).show();
+                F_Page.setText(""+Text_Page+"");
+                //Toast.makeText(getActivity(), "向上翻页 Page:" + Text_Page + "", Toast.LENGTH_SHORT).show();
             }
         });
         Button F_text_Down = (Button) rootView.findViewById(R.id.F_text_Down);
@@ -107,7 +110,8 @@ public class MainPreView extends Fragment {
                     PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Main_string.length()));
                 }
                 F_text_SeekBar.setProgress(Text_Page);
-                Toast.makeText(getActivity(), "向下翻页 Page:" + Text_Page + "", Toast.LENGTH_SHORT).show();
+                F_Page.setText(""+Text_Page+"");
+                //Toast.makeText(getActivity(), "向下翻页 Page:" + Text_Page + "", Toast.LENGTH_SHORT).show();
             }
         });
         // 返回上一页面
@@ -146,6 +150,7 @@ public class MainPreView extends Fragment {
                             PreView_Text.setText(Main_string.substring(Page_Text_Num * (Text_Page - 1), Main_string.length()));
                         }
                     }
+                    F_Page.setText(""+Text_Page+"");
                 }
                 System.out.println("--> SeekBar 进度" + Text_Page + "");
             }
@@ -156,7 +161,7 @@ public class MainPreView extends Fragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(getActivity(), "滚动条定位 Page:" + Text_Page + "", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "滚动条定位 Page:" + Text_Page + "", Toast.LENGTH_SHORT).show();
             }
         });
         return rootView;
