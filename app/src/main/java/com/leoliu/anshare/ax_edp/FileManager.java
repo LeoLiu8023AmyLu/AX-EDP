@@ -87,7 +87,7 @@ public class FileManager extends ListFragment {
         String sDStateString = Environment.getExternalStorageState();
         if (sDStateString.equals(Environment.MEDIA_MOUNTED)) {
             File SDFile = Environment.getExternalStorageDirectory();
-            curPath = SDFile.getAbsolutePath();// + "/documents/";
+            curPath = SDFile.getAbsolutePath()+"/";// + "/documents/";
             System.out.println("获取到的地址: "+curPath);
             itemList = getData(curPath);
             adapter = new SimpleAdapter(getActivity(), itemList, R.layout.list_item, from, to);
@@ -178,7 +178,7 @@ public class FileManager extends ListFragment {
         adapter = new SimpleAdapter(getActivity(), itemList, R.layout.list_item, from, to);
         setListAdapter(adapter);
         adapter.notifyDataSetChanged();
-        //Toast.makeText(getActivity(), "当前地址:\n" + path, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "当前地址:\n" + path, Toast.LENGTH_SHORT).show();
     }
 
     public void goToIntent(View view) {
