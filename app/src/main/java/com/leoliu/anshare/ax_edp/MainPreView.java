@@ -24,6 +24,7 @@ public class MainPreView extends Fragment {
     private int Text_Page_Max;
     private int Page_Text_Num = 160;
     private float TextSize = 25;
+    String Main_string="文件读取失败";
 
     public MainPreView() {
     }
@@ -36,7 +37,6 @@ public class MainPreView extends Fragment {
         MA.Set_Time_Flag(false);
         //初始化 控件
         final TextView PreView_Text = (TextView) rootView.findViewById(R.id.MainPreView_Text);
-        final String Main_string;
         String Txt_File_Path = MA.Get_Text_File_Path();
         System.out.println("--> 文件目录:"+Txt_File_Path);
         if (Txt_File_Path == null) {
@@ -50,7 +50,12 @@ public class MainPreView extends Fragment {
         }
         else {
             Toast.makeText(getActivity(), "文件: " + Txt_File_Path + " 已读取", Toast.LENGTH_SHORT).show();
-            Main_string = TxtReader.getString(Txt_File_Path);
+            try {
+                Main_string = TxtReader.getString(Txt_File_Path);
+            }catch (Exception E){
+
+                Toast.makeText(getActivity(), "请检查文件是否正确!", Toast.LENGTH_SHORT).show();
+            }
         }
         //File TxtFile = new File("Leo.txt");
         //inputstreamtofile(inputStream, TxtFile);
