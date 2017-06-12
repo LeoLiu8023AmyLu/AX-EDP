@@ -164,6 +164,15 @@ public class FileManager extends ListFragment {
                 // 打开新页面预览
                 getFragmentManager().beginTransaction().replace(R.id.container, new MainPreView()).commit();
             }
+            else if((TextFilePath.substring((TextFilePath.length() - 4), TextFilePath.length())).toLowerCase().equals(".doc")) {
+                Toast.makeText(getActivity(), "[" + itemList.get(position).get(COLUMN_NAME_NAME) + "] 是可读取文件(doc)，未开发此项功能，请等待程序升级", Toast.LENGTH_SHORT).show();
+            }
+            else if((TextFilePath.substring((TextFilePath.length() - 4), TextFilePath.length())).toLowerCase().equals(".pdf")) {
+                Toast.makeText(getActivity(), "[" + itemList.get(position).get(COLUMN_NAME_NAME) + "] 是可读取文件(pdf)，未开发此项功能，请等待程序升级", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(getActivity(), "[" + itemList.get(position).get(COLUMN_NAME_NAME) + "] 程序不接受此类型文件", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
