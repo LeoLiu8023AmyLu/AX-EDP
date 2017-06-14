@@ -105,14 +105,17 @@ public class USBMainActivity extends AppCompatActivity implements AdapterView.On
                 Intent intent = new Intent(USBMainActivity.this, MainActivity.class);
                 if (USBFilePath.length() > 4) {
                     if ((USBFilePath.substring((USBFilePath.length() - 4), USBFilePath.length())).toLowerCase().equals(".txt")) {
+                        intent.putExtra("FilePath", USBFilePath);
+                        startActivity(intent);
                     } else {
                         USBFilePath = "";
+                        Toast.makeText(USBMainActivity.this, "不支持此类型文件", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     USBFilePath = "";
+                    Toast.makeText(USBMainActivity.this, "不支持此类型文件", Toast.LENGTH_SHORT).show();
                 }
-                intent.putExtra("FilePath", USBFilePath);
-                startActivity(intent);
+
             }
         });
         // 返回上一页面

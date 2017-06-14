@@ -51,6 +51,10 @@ public class MainActivity extends Activity {
         //Start_OTG_IntentFilter();   // 监听 OTG USB 的插入事件
         Thread_Start();             // 开始 时间自动更新 线程
         Permission_Set();
+        if(!TextFilePath.equals("")){
+            Set_Time_Flag(false);
+            getFragmentManager().beginTransaction().add(R.id.container, new MainPreView()).commit();
+        }
     }
 
     /**

@@ -42,7 +42,7 @@ public class MainWindow extends Fragment {
             public void onClick(View v) {
                 //do something
                 Toast.makeText(getActivity(), "暂不支持此项功能，请等待开发完成", Toast.LENGTH_SHORT).show();
-                goToIntent(rootView);
+                // goToIntent(rootView);
             }
         });
         //初始化 控件
